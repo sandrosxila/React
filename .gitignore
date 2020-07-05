@@ -1,3 +1,5 @@
 test/
+practice/.idea
+practice/build
 practice/node_modules
 practice/package-lock.json

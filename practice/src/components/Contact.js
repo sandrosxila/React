@@ -23,9 +23,13 @@ class Contact extends Component {
                                     <i onClick={() => {
                                         dispatch({type: 'DELETE_CONTACT',payload: id});
                                     }} className="fa fa-window-close" aria-hidden="true"
-                                       style={{float: 'right', cursor: 'pointer'}}></i>
+                                       style={{float: 'right', cursor: 'pointer'}}>
+
+                                    </i>
                                     <i onClick={this.clickOnCollapse} className="fa fa-angle-down"
-                                       style={{float: 'left', cursor: 'pointer'}}></i>
+                                       style={{float: 'left', cursor: 'pointer'}}>
+
+                                    </i>
                                     {
                                         !this.state.isVisible ?
                                             <p style={{marginLeft: '20px'}}>{name} {lastName}</p> :

@@ -6,12 +6,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 
 import {Provider} from './context';
+import AddContact from "./components/AddContact";
 
 function App() {
     return (
         <Provider>
             <div className="App">
                 <Header/>
+                <AddContact/>
                 <div style={{marginTop: "20px"}} className="container">
                     <Contacts/>
                 </div>

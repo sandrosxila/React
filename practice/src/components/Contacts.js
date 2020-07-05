@@ -19,7 +19,7 @@ class Contacts extends Component {
                                 {
                                     contacts.map(contact => {
                                         let {id, name, lastName, phone} = contact;
-                                        return <Contact id={id} name={name} lastName={lastName} phone={phone}/>
+                                        return <Contact key={contact.id} id={id} name={name} lastName={lastName} phone={phone}/>
                                     })
                                 }
                             </div>
