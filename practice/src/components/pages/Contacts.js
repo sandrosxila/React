@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Contact from "./Contact";
-import {Consumer} from '../context';
+import Contact from "../Contact";
+import {Consumer} from '../../context';
 
 class Contacts extends Component {
 
@@ -15,7 +15,7 @@ class Contacts extends Component {
                     (value) => {
                         let {contacts} = value;
                         return (
-                            <div>
+                            <div style={{marginTop: "20px"}} className="container">
                                 {
                                     contacts.map(contact => {
                                         let {id, name, lastName, phone} = contact;

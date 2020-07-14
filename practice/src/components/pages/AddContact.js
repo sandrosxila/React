@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import InputField from "./InputField";
-import {Consumer} from '../context';
+import InputField from "../InputField";
+import {Consumer} from '../../context';
 import {v4 as uuid} from 'uuid';
 
 class AddContact extends Component {
@@ -14,7 +14,7 @@ class AddContact extends Component {
         let {name,lastName,phone} = this.state;
         let errors = {};
         let isValid = true;
-        console.log(this.state);
+        // console.log(this.state);
         if (name === '') {
             errors.name = 'Name Can\'t Be Empty';
             isValid = false;
@@ -32,7 +32,7 @@ class AddContact extends Component {
             console.log(isValid)
 
         }
-        console.log(errors);
+        // console.log(errors);
         this.setState({errors:errors});
         return isValid;
     }
@@ -58,6 +58,7 @@ class AddContact extends Component {
                 phone: '',
                 errors: {}
             });
+            this.props.history.push('/');
         }
     }
 
