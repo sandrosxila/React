@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import InputField from "../InputField";
-import {Consumer,Context} from '../../context';
+import {Consumer, Context} from '../../context';
+import axios from 'axios';
 
 class AddContact extends Component {
 
@@ -10,14 +11,28 @@ class AddContact extends Component {
         phone: '',
         errors: {},
     }
+
     componentDidMount() {
-        const {id} = this.props.match.params;
-        const data = this.context.contacts.filter(contact => contact.id === id)[0];
-        this.setState({name:data.name,email:data.email,phone:data.phone});
+        try {
+            const {id} = this.props.match.params;
+            console.log(this.context.contacts);
+            const data = this.context.contacts.filter(contact => contact.id == id)[0];
+            this.setState({name: data.name, email: data.email, phone: data.phone});
+        }
+        catch (e) {
+            console.log(e);
+            const {id} = this.props.match.params;
+            axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+                .then(res => {
+                    const {data} = res;
+                    this.setState({name: data.name, email: data.email, phone: data.phone})
+                });
+        }
+
     }
 
     validateFields = () => {
-        let {name,email,phone} = this.state;
+        let {name, email, phone} = this.state;
         let errors = {};
         let isValid = true;
         // console.log(this.state);
@@ -39,7 +54,7 @@ class AddContact extends Component {
 
         }
         // console.log(errors);
-        this.setState({errors:errors});
+        this.setState({errors: errors});
         return isValid;
     }
     onChange = (e) => {
@@ -47,18 +62,20 @@ class AddContact extends Component {
     }
     onSubmit = (dispatch, e) => {
         e.preventDefault();
-        if(this.validateFields()) {
+        if (this.validateFields()) {
 
             let {name, email, phone} = this.state;
 
             const updatedContact = {
-                id: this.props.match.params.id,
                 name,
                 email,
                 phone
             }
-            
-            dispatch({type: 'UPDATE_CONTACT', payload: updatedContact});
+            const {id} = this.props.match.params;
+            axios.put(`https://jsonplaceholder.typicode.com/users/${id}`, updatedContact)
+                .then(res => {
+                    dispatch({type: 'UPDATE_CONTACT', payload: res.data});
+                })
             this.setState({
                 name: '',
                 email: '',
@@ -81,7 +98,7 @@ class AddContact extends Component {
                                 <div className="card">
                                     <div className="card-body">
                                         <h4>Edit User</h4>
-                                        <form onSubmit={this.onSubmit.bind(this,dispatch)}>
+                                        <form onSubmit={this.onSubmit.bind(this, dispatch)}>
                                             <InputField placeholder="Please Enter Name" fieldName="Name" name="name"
                                                         value={name}
                                                         onChange={this.onChange} error={errors.name}/>
@@ -94,7 +111,7 @@ class AddContact extends Component {
                                                         value={phone} onChange={this.onChange} error={errors.phone}/>
                                             <input type="submit" className="btn btn-outline-success"
                                                    value="Edit Contact"
-                                                   onChange={this.onChange} />
+                                                   onChange={this.onChange}/>
                                         </form>
                                     </div>
                                 </div>
@@ -106,6 +123,7 @@ class AddContact extends Component {
         )
     }
 }
+
 AddContact.contextType = Context;
 
 export default AddContact;

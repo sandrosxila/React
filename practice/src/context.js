@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-
+import axios from 'axios';
 const Context = React.createContext();
 
 export class Provider extends Component {
@@ -35,28 +35,18 @@ export class Provider extends Component {
         }
     }
     state = {
-        contacts:[
-            {
-                id:'1',
-                name:'Sandro Skhirtladze',
-                email: 'sandro@yahoo.com',
-                phone: '558 552 557'
-            },
-            {
-                id:'2',
-                name:'Sandra Bauer',
-                email: 'sandra@mercury.at',
-                phone: '552 552 557'
-            },
-            {
-                id:'3',
-                name:'Nick Patrick',
-                email: 'nick@harisson.pl',
-                phone: '554 552 557'
-            }
-        ],
+        contacts:[],
         dispatch: (action) => {
             this.setState(this.reducer(this.state,action));
+        }
+    }
+    componentDidMount(){
+        if(this.state.contacts.length === 0) {
+            axios.get('https://jsonplaceholder.typicode.com/users')
+                .then(res => {
+                    console.log(res);
+                    this.setState({contacts: res.data});
+                });
         }
     }
     render() {

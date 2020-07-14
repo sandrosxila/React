@@ -2,6 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import {Consumer} from '../context';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 class Contact extends Component {
     state = {
@@ -10,7 +11,15 @@ class Contact extends Component {
     clickOnCollapse = () => {
         this.setState({isVisible: !this.state.isVisible});
     }
-
+    onDeleteClick = async (id, dispatch) => {
+        try {
+            await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
+            dispatch({type: 'DELETE_CONTACT',payload: id});
+        }
+        catch (e) {
+            dispatch({type: 'DELETE_CONTACT',payload: id});
+        }
+    }
     render() {
         let {id, name, email, phone} = this.props;
         return (
@@ -21,9 +30,7 @@ class Contact extends Component {
                         return (
                             <ul className="card card-body mb-3">
                                 <h6>
-                                    <i onClick={() => {
-                                        dispatch({type: 'DELETE_CONTACT',payload: id});
-                                    }} className="fa fa-window-close" aria-hidden="true"
+                                    <i onClick={this.onDeleteClick.bind(this,id,dispatch)} className="fa fa-window-close" aria-hidden="true"
                                        style={{float: 'right', cursor: 'pointer'}}>
 
                                     </i>
