@@ -1,15 +1,21 @@
 import React, {Component} from 'react';
 import InputField from "../InputField";
-import {Consumer} from '../../context';
-import {v4 as uuid} from 'uuid';
+import {Consumer,Context} from '../../context';
 
 class AddContact extends Component {
+
     state = {
         name: '',
         email: '',
         phone: '',
         errors: {},
     }
+    componentDidMount() {
+        const {id} = this.props.match.params;
+        const data = this.context.contacts.filter(contact => contact.id === id)[0];
+        this.setState({name:data.name,email:data.email,phone:data.phone});
+    }
+
     validateFields = () => {
         let {name,email,phone} = this.state;
         let errors = {};
@@ -18,18 +24,18 @@ class AddContact extends Component {
         if (name === '') {
             errors.name = 'Name Can\'t Be Empty';
             isValid = false;
-            console.log(isValid)
+            // console.log(isValid)
         }
         if (email === '') {
             errors.email = 'Last Name Can\'t Be Empty';
             isValid = false;
-            console.log(isValid)
+            // console.log(isValid)
 
         }
         if (phone === '') {
             errors.phone = 'Phone Number Can\'t Be Empty';
             isValid = false;
-            console.log(isValid)
+            // console.log(isValid)
 
         }
         // console.log(errors);
@@ -45,13 +51,14 @@ class AddContact extends Component {
 
             let {name, email, phone} = this.state;
 
-            const newContact = {
-                id: uuid(),
+            const updatedContact = {
+                id: this.props.match.params.id,
                 name,
                 email,
                 phone
             }
-            dispatch({type: 'ADD_CONTACT', payload: newContact});
+            
+            dispatch({type: 'UPDATE_CONTACT', payload: updatedContact});
             this.setState({
                 name: '',
                 email: '',
@@ -73,7 +80,7 @@ class AddContact extends Component {
                             <div className="container">
                                 <div className="card">
                                     <div className="card-body">
-                                        <h4>Create User</h4>
+                                        <h4>Edit User</h4>
                                         <form onSubmit={this.onSubmit.bind(this,dispatch)}>
                                             <InputField placeholder="Please Enter Name" fieldName="Name" name="name"
                                                         value={name}
@@ -86,7 +93,7 @@ class AddContact extends Component {
                                                         name="phone"
                                                         value={phone} onChange={this.onChange} error={errors.phone}/>
                                             <input type="submit" className="btn btn-outline-success"
-                                                   value="Add to Contact List"
+                                                   value="Edit Contact"
                                                    onChange={this.onChange} />
                                         </form>
                                     </div>
@@ -99,5 +106,6 @@ class AddContact extends Component {
         )
     }
 }
+AddContact.contextType = Context;
 
 export default AddContact;

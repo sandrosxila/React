@@ -18,6 +18,18 @@ export class Provider extends Component {
                         action.payload
                     ]
                 }
+            case 'UPDATE_CONTACT':{
+                return {
+                    ...state,
+                    contacts: state.contacts.map( contact => {
+                        if(contact.id === action.payload.id){
+                            return action.payload;
+                        }
+                        return contact;
+                    })
+                }
+            }
+
             default:
                 return state;
         }
@@ -25,21 +37,21 @@ export class Provider extends Component {
     state = {
         contacts:[
             {
-                id:1,
-                name:'Sandro',
-                lastName: 'Skhirtladze',
+                id:'1',
+                name:'Sandro Skhirtladze',
+                email: 'sandro@yahoo.com',
                 phone: '558 552 557'
             },
             {
-                id:2,
-                name:'Sandra',
-                lastName: 'Bauer',
+                id:'2',
+                name:'Sandra Bauer',
+                email: 'sandra@mercury.at',
                 phone: '552 552 557'
             },
             {
-                id:3,
-                name:'Nick',
-                lastName: 'Patrick',
+                id:'3',
+                name:'Nick Patrick',
+                email: 'nick@harisson.pl',
                 phone: '554 552 557'
             }
         ],
@@ -59,3 +71,5 @@ export class Provider extends Component {
 }
 
 export const Consumer = Context.Consumer;
+
+export {Context};

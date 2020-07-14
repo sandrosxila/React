@@ -18,8 +18,8 @@ class Contacts extends Component {
                             <div style={{marginTop: "20px"}} className="container">
                                 {
                                     contacts.map(contact => {
-                                        let {id, name, lastName, phone} = contact;
-                                        return <Contact key={contact.id} id={id} name={name} lastName={lastName} phone={phone}/>
+                                        let {id, name, email, phone} = contact;
+                                        return <Contact key={contact.id} id={id} name={name} email={email} phone={phone}/>
                                     })
                                 }
                             </div>
