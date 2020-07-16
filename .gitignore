@@ -3,3 +3,7 @@ practice/.idea
 practice/build
 practice/node_modules
 practice/package-lock.json
+practice-redux/.idea
+practice-redux/build
+practice-redux/node_modules
+practice-redux/package-lock.json
