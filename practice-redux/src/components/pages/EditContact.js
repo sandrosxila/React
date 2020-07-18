@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import InputField from "../InputField";
+import {connect} from "react-redux";
+import {getContacts,updateContact} from "../../actions/contactActions";
 import axios from 'axios';
 
 class AddContact extends Component {
@@ -12,7 +14,13 @@ class AddContact extends Component {
     }
 
     componentDidMount() {
-        // get data
+        this.props.getContacts();
+        const {id} = this.props.match.params;
+        let {contacts} = this.props;
+        let {name,email,phone} = contacts.filter(contact => (contact.id == id))[0];
+        this.setState({
+            name,email,phone
+        });
 
     }
 
@@ -57,7 +65,7 @@ class AddContact extends Component {
                 phone
             }
             const {id} = this.props.match.params;
-            // update data
+            this.props.updateContact({...updatedContact,id});
             this.setState({
                 name: '',
                 email: '',
@@ -97,5 +105,9 @@ class AddContact extends Component {
         )
     }
 }
-
-export default AddContact;
+const mapStateToProps = (state) => {
+    return {
+        contacts: state.contact.contacts
+    }
+}
+export default connect(mapStateToProps, {getContacts,updateContact})(AddContact);

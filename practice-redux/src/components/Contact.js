@@ -1,17 +1,19 @@
 import React from 'react';
 import {Component} from 'react';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
+import {connect} from 'react-redux'
+import {deleteContact} from "../actions/contactActions";
 
 class Contact extends Component {
     state = {
         isVisible: false
     }
+
     clickOnCollapse = () => {
         this.setState({isVisible: !this.state.isVisible});
     }
     onDeleteClick = id => {
-        // delete contact
+        this.props.deleteContact(id);
     }
 
     render() {
@@ -55,4 +57,4 @@ class Contact extends Component {
     }
 }
 
-export default Contact;
+export default connect(null,{deleteContact})(Contact);
