@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import InputField from "../InputField";
 import {connect} from "react-redux";
 import {addContact} from "../../actions/contactActions";
-import {v4 as uuid} from 'uuid';
-import axios from 'axios';
 
 class AddContact extends Component {
     state = {
@@ -42,7 +40,6 @@ class AddContact extends Component {
             let {name, email, phone} = this.state;
 
             const newContact = {
-                id:uuid(),
                 name,
                 email,
                 phone

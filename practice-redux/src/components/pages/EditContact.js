@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import InputField from "../InputField";
 import {connect} from "react-redux";
-import {getContacts,updateContact} from "../../actions/contactActions";
-import axios from 'axios';
+import {getContact,updateContact} from "../../actions/contactActions";
 
 class AddContact extends Component {
 
@@ -13,15 +12,16 @@ class AddContact extends Component {
         errors: {},
     }
 
-    componentDidMount() {
-        this.props.getContacts();
-        const {id} = this.props.match.params;
-        let {contacts} = this.props;
-        let {name,email,phone} = contacts.filter(contact => (contact.id == id))[0];
+    UNSAFE_componentWillReceiveProps(nextProps, nextContext) {
+        let {name,email,phone} = nextProps.contact;
         this.setState({
-            name,email,phone
-        });
+                name,email,phone
+            });
+    }
 
+    componentDidMount() {
+        const {id} = this.props.match.params;
+        this.props.getContact(id);
     }
 
     validateFields = () => {
@@ -107,7 +107,7 @@ class AddContact extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        contacts: state.contact.contacts
+        contact: state.contact.contact
     }
 }
-export default connect(mapStateToProps, {getContacts,updateContact})(AddContact);
+export default connect(mapStateToProps, {getContact,updateContact})(AddContact);
