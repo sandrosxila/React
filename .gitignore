@@ -7,3 +7,7 @@ practice-redux/.idea
 practice-redux/build
 practice-redux/node_modules
 practice-redux/package-lock.json
+control-panel-firebase/.idea
+control-panel-firebase/build
+control-panel-firebase/node_modules
+control-panel-firebase/package-lock.json
