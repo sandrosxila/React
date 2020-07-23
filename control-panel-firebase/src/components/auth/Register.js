@@ -6,30 +6,43 @@ import {firebaseConnect} from 'react-redux-firebase';
 import notifyUser from '../../actions/notifyActions';
 import Alert from '../layout/Alert';
 
-class Login extends Component {
+class Register extends Component {
     state = {
         email: '',
+        repeatEmail:'',
         password: '',
     }
     onChange = e => {
         this.setState({[e.target.name]: e.target.value});
     }
 
+    validateEmailFields = () => {
+        const {email,repeatEmail} = this.state;
+        return email === repeatEmail;
+    }
+
     onSubmit = e => {
         e.preventDefault();
-        const {firebase, notifyUser} = this.props;
+        const {firebase, notifyUser,history} = this.props;
         const {email, password} = this.state;
-        firebase.login({
-            email,
-            password
-        })
-            .then(() => {
-                notifyUser('successfully Logged in!!!','success');
+        if(this.validateEmailFields()){
+            firebase.createUser({
+                email,
+                password
             })
-            .catch((err) => {
-                console.log(err);
-                notifyUser('Username or Password is incorrect!!!','error');
-            })
+                .then(() => {
+                    notifyUser('successfully Registered!!!','success');
+                    history.push('/login')
+                })
+                .catch((err) => {
+                    console.log(err);
+                    notifyUser('That User Already Exists','error');
+                })
+        }
+        else{
+            notifyUser('Repeated Email does not match','error');
+        }
+
     }
 
     render() {
@@ -42,9 +55,9 @@ class Login extends Component {
                         <div className="card">
                             <div className="card-title">
                                 <h1 className="text-center my-1">
-                                    <i className="fa fa-user-circle-o"/>
+                                    <i className="fa fa-id-card"/>
                                     {' '}
-                                    <span className="text-dark"> Login </span>
+                                    <span className="text-dark"> Register </span>
                                 </h1>
                             </div>
                             <div className="card-body">
@@ -54,6 +67,13 @@ class Login extends Component {
                                         <input type="email" id="email" className="form-control"
                                                placeholder="Enter E-mail"
                                                name="email" value={this.state.email}
+                                               onChange={this.onChange} required/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="repeatEmail">Repeat E-mail</label>
+                                        <input type="email" id="repeatEmail" className="form-control"
+                                               placeholder="Enter E-mail"
+                                               name="repeatEmail" value={this.state.repeatEmail}
                                                onChange={this.onChange} required/>
                                     </div>
                                     <div className="form-group">
@@ -67,7 +87,7 @@ class Login extends Component {
                                     <div className="row p-2">
                                         <div className="col-4 mx-auto">
                                             <button type="submit" className="btn btn-primary btn-lg btn-block">
-                                                Login
+                                                Register
                                             </button>
                                         </div>
                                     </div>
@@ -85,11 +105,9 @@ class Login extends Component {
 export default compose(
     firebaseConnect(),
     connect(
-        (state,props) => {
-            return {
-                notify: state.notify
-            }
-        },
+        (state,props) => ({
+            notify: state.notify
+        }),
         {notifyUser}
     )
-)(Login);
+)(Register);

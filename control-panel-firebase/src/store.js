@@ -5,6 +5,9 @@ import 'firebase/auth';
 import { createStore, combineReducers, compose } from 'redux';
 import { firebaseReducer } from 'react-redux-firebase';
 import { createFirestoreInstance, firestoreReducer } from 'redux-firestore'
+import notifyReducer from "./reducers/notifyReducer";
+import settingsReducer from "./reducers/settingsReducer";
+
 const firebaseConfig = {
     apiKey: "AIzaSyAJnjD8phA4piEHn51cgd7ZwJ4KEcSKmLY",
     authDomain: "control-panel-firebase.firebaseapp.com",
@@ -27,20 +30,23 @@ firebase.initializeApp(firebaseConfig);
 // Init firestore
 firebase.firestore();
 
-// Add reactReduxFirebase enhancer when making store creator
-// const createStoreWithFirebase = compose(
-//     reactReduxFirebase(firebase, rrfConfig), // firebase instance as first argument
-//     reduxFirestore(firebase)
-// )(createStore);
+if(localStorage.getItem('settings') == null){
+    const defaultSettings = {
+        disableBalanceOnAdd : true,
+        disableBalanceOnEdit : false,
+        allowRegistration : false
+    }
+    localStorage.setItem('settings',JSON.stringify(defaultSettings));
+}
+
+const initialState = {settings : JSON.parse(localStorage.getItem('settings'))};
 
 const rootReducer = combineReducers({
     firebase: firebaseReducer,
     firestore: firestoreReducer,
+    notify: notifyReducer,
+    settings: settingsReducer
 });
-
-
-// Create initial state
-const initialState = { };
 
 
 

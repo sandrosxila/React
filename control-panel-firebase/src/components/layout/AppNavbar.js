@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {firebaseConnect} from 'react-redux-firebase';
+import notifyUser from "../../actions/notifyActions";
 
 class AppNavbar extends Component {
     state = {
@@ -10,13 +11,16 @@ class AppNavbar extends Component {
     }
     onLogoutClick = (e) => {
         e.preventDefault();
-        const {firebase} = this.props;
-        firebase.logout();
+
+        const {firebase,notifyUser} = this.props;
+
+        firebase.logout().then(() => {
+            notifyUser(null,null);
+        });
     };
 
     static getDerivedStateFromProps(props, state) {
         const {auth} = props;
-        console.log(props)
         if (auth.uid) {
             return {isAuthenticated: true};
         }
@@ -26,6 +30,7 @@ class AppNavbar extends Component {
     render() {
         const {isAuthenticated} = this.state;
         const {auth} = this.props;
+        const {allowRegistration} = this.props.settings;
         return (
             <nav className="navbar navbar-expand-md navbar-dark bg-primary mb-4">
                 <div className="container">
@@ -48,8 +53,14 @@ class AppNavbar extends Component {
                             </ul>
                             : null
                         }
+
                         {isAuthenticated ?
                             <ul className="navbar-nav ml-auto">
+                                <li className="nav-item">
+                                    <Link to='/settings' className="nav-link">
+                                        Settings
+                                    </Link>
+                                </li>
                                 <li className="nav-item">
                                     <a href="#!" className={"nav-link text-light"}>
                                         {auth.email}
@@ -63,7 +74,25 @@ class AppNavbar extends Component {
                             </ul>
                             : null
                         }
-
+                        { allowRegistration && !isAuthenticated?
+                            <div className="navbar-nav ml-auto">
+                                <li className="nav-item">
+                                    <Link to='/login' className="nav-link" onClick={() => {
+                                        this.props.notifyUser(null,null);
+                                    }}>
+                                        Log In
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to='/register' className="nav-link" onClick={() => {
+                                        this.props.notifyUser(null,null);
+                                    }}>
+                                        Register
+                                    </Link>
+                                </li>
+                            </div>
+                            :null
+                        }
 
                     </div>
 
@@ -77,7 +106,11 @@ export default compose(
     firebaseConnect(),
     connect(
         (state, props) => ({
-            auth: state.firebase.auth
-        })
+            auth: state.firebase.auth,
+            notify : state.notify,
+            settings : state.settings
+        }),
+        {notifyUser}
+
     )
 )(AppNavbar);
