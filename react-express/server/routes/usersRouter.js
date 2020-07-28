@@ -21,6 +21,18 @@ router.get('/:id',(req, res) => {
             res.send(err);
         }
         else {
+            res.json(...rows);
+        }
+    })
+})
+
+router.get('/:id/posts/',(req, res) => {
+    const {id} = req.params;
+    db.query(`SELECT * FROM \`react_expressjs_mysql\` . \`posts\` WHERE \`userId\` = ${id}  ORDER BY postId DESC`,(err,rows) => {
+        if(err) {
+            res.send(err);
+        }
+        else {
             res.json(rows);
         }
     })
