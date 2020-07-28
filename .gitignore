@@ -11,3 +11,10 @@ control-panel-firebase/.idea
 control-panel-firebase/build
 control-panel-firebase/node_modules
 control-panel-firebase/package-lock.json
+react-express/.idea
+react-express/client/build
+react-express/client/node_modules
+react-express/client/package-lock.json
+react-express/server/build
+react-express/server/node_modules
+react-express/server/package-lock.json
