@@ -1,7 +1,17 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import {useDispatch, useSelector} from "react-redux";
+import {logOut} from "../../slices/auth/authSlice";
 
 function Navbar(props) {
+
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    const dispatch = useDispatch();
+
+    const onLogOutClick = (e) => {
+        dispatch(logOut());
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-5" data-target="#">
             <div className="container">
@@ -21,20 +31,35 @@ function Navbar(props) {
                             </Link>
                         </li>
                     </ul>
-                    <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <Link to='/add' className="btn btn-success">
-                                Add Post
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to='/' className="btn btn-info ml-2">
-                                Log out
-                            </Link>
-                        </li>
-                    </ul>
+                    {
+                        isLoggedIn?
+                            <ul className="navbar-nav ml-auto">
+                                <li className="nav-item">
+                                    <Link to='/add' className="btn btn-success">
+                                        Add Post
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to='/login' className="btn btn-info ml-2" onClick={onLogOutClick}>
+                                        Log out
+                                    </Link>
+                                </li>
+                            </ul>
+                        :
+                            <ul className="navbar-nav ml-auto">
+                                <li className="nav-item">
+                                    <Link to='/login' className="btn btn-outline-light">
+                                        Log In
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to='/signup' className="btn btn-primary ml-2">
+                                        Sign Up
+                                    </Link>
+                                </li>
+                            </ul>
+                    }
                 </div>
-
             </div>
 
         </nav>

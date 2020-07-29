@@ -1,25 +1,17 @@
 import React, {useEffect, useState} from 'react';
+import {useSelector} from "react-redux";
 import axios from "axios";
 
 const UserPanel = (props) => {
-    const [userData, setUserData] = useState({});
+    const userData = useSelector(state => state.auth.userData);
     const [imageFail, setImageFail] = useState(false);
 
-    useEffect(() => {
-        axios.get('/users/1')
-            .then(
-                (res) => {
-                    setUserData(res.data);
-                }
-            );
-    }, [setUserData]);
-
-    const {firstName, lastName} = userData;
+    const {userId,firstName, lastName, photo} = userData;
 
     return (
         <div className="card p-5 sticky-top" style={{top:'1.2rem'}}>
             <img style={{width: '7rem', height: '7rem', objectFit: 'cover'}}
-                 src="/photos/user.png"
+                 src={`/photos/${userId}/${photo}`}
                  className="card-img-top mx-auto rounded-circle " alt="" onError={
                 (e) => {
                     e.target.style.display = 'none';

@@ -1,5 +1,5 @@
 -- MySQL Workbench Synchronization
--- Generated: 2020-07-26 01:48
+-- Generated: 2020-07-29 15:05
 -- Model: New Model
 -- Version: 1.0
 -- Project: Name of the project
@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS `react_expressjs_mysql`.`users` (
   `password` CHAR(64) NOT NULL,
   `photo` VARCHAR(225) NOT NULL,
   PRIMARY KEY (`userId`),
-  UNIQUE INDEX `user_id_UNIQUE` (`userId` ASC) VISIBLE)
+  UNIQUE INDEX `user_id_UNIQUE` (`userId` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
@@ -29,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `react_expressjs_mysql`.`posts` (
   `image` VARCHAR(225) NOT NULL,
   `content` TEXT NULL DEFAULT NULL,
   `userId` INT(11) NOT NULL,
-  PRIMARY KEY (`postId`, `userId`),
+  PRIMARY KEY (`postId`),
   INDEX `fk_posts_users_idx` (`userId` ASC) VISIBLE,
   CONSTRAINT `fk_posts_users`
     FOREIGN KEY (`userId`)

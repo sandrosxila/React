@@ -49,21 +49,20 @@ const AddPost = (props) => {
 
     return (
         <div>
-            <div className="row">
+            <div className="row mb-2">
                 <div className="col col-12">
-                    <div className="card">
-                        <div className="card-header">
-                            <h3>Add Post</h3>
-                        </div>
-                        <div className="card-body">
+                    <div className="card p-3">
+                        <h3 className="card-title mb-2">Add Post</h3>
+                        <hr className="col col-3 mx-auto my-0"/>
+                        <div className="card-body mt-0">
                             <form onSubmit={onSubmit} encType="multipart/form-data">
-                                <div className="form-group">
-                                    <label htmlFor="postTitle">Title</label>
-                                    <input type="text" className="form-control" id="postTitle" ref={titleRef} required/>
+                                <div className="form-group mb-2">
+                                    <input type="text" className="form-control" id="postTitle" ref={titleRef}
+                                           placeholder="Enter Post Title" required/>
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="postText">Text</label>
-                                    <textarea className="form-control" id="postText" rows="18" ref={textRef} required>
+                                <div className="form-group mb-1">
+                                    <label htmlFor="postText"><h5>Type text below</h5></label>
+                                    <textarea className="form-control overflow-auto" id="postText" rows="10" ref={textRef} required>
                                     </textarea>
                                 </div>
                                 <div className="input-group mb-3">
