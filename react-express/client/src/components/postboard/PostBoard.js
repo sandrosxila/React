@@ -8,10 +8,15 @@ const PostBoard = (props) => {
 
     const [scrollPosition,setScrollPosition] = useState(0);
 
+    const scrollSet = () => {
+        setScrollPosition(window.scrollY);
+    };
     useEffect(()=>{
-        window.addEventListener('scroll', () => {
-            setScrollPosition(window.scrollY);
-        })
+        window.addEventListener('scroll', scrollSet);
+        return () => {
+            window.removeEventListener('scroll', scrollSet);
+            setScrollPosition(0);
+        }
     },[setScrollPosition]);
 
     return (

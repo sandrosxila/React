@@ -13,7 +13,7 @@ const UserPosts = () => {
             .then(res => {
                 setPosts(res.data);
             })
-    }, [setPosts])
+    }, [setPosts]);
 
     return (
         <div className="card mb-4">
@@ -25,7 +25,8 @@ const UserPosts = () => {
                 <div className="card-text">
                     <ul className="list-group">
                         {
-                            posts.slice(0,15).map(post => {
+                            posts.slice(Math.max(0,posts.length - 15),posts.length)
+                                .map(post => {
                                 const {title,postId,userId} = post;
                                 return (
                                     <Link key={postId} to={`/${userId}/posts/${postId}`} className="list-group-item">

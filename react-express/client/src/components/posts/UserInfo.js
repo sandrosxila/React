@@ -7,7 +7,7 @@ const UserInfo = (props) => {
     const {userData} = props;
     const {userId,photo,firstName,lastName} = userData;
     return (
-        <div className="card">
+        <div className="card mb-4">
             <div className="card-body">
                 <div className="row">
                     <div className="col col-3">

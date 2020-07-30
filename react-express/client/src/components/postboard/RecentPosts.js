@@ -10,6 +10,7 @@ const RecentPosts = (props) => {
                 setPosts(res.data);
             });
     }, [setPosts]);
+
     return (
         <>
             {
@@ -32,7 +33,7 @@ const RecentPosts = (props) => {
                                 <div className="card-text">
                                     {content.substr(0, 250)}...
                                 </div>
-                                <Link to={`/posts/${postId}`} className="btn btn-outline-dark m-2">
+                                <Link to={`${userId}/posts/${postId}`} className="btn btn-outline-dark m-2">
                                     Read More...
                                 </Link>
                             </div>
