@@ -50,7 +50,7 @@ const EditPost = (props) => {
         }
         formData.append('title', titleRef.current.value);
         formData.append('content', textRef.current.value);
-        formData.append('userId', '1');
+        formData.append('userId', userData.userId);
         formData.append('prevImage', postData.image);
 
         axios.put(`/posts/${urlPostId}`, formData, {
@@ -75,6 +75,7 @@ const EditPost = (props) => {
     }
 
     const onImageDeleteClick = (e) => {
+        setNewImageUploaded(false);
         axios.delete(fileUrlName)
             .then(
                 res => {

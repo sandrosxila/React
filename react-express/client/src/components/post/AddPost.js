@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import {useHistory} from 'react-router-dom';
 import axios from 'axios'
 import {v4 as uuid} from 'uuid';
+import {useSelector} from "react-redux";
 
 const AddPost = (props) => {
 
@@ -14,6 +15,7 @@ const AddPost = (props) => {
     const [fileName, setFileName] = useState('');
     const [alertMessage, setAlertMessage] = useState(null);
 
+    const userData = useSelector(state => state.auth.userData);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -26,7 +28,7 @@ const AddPost = (props) => {
         }
         formData.append('title', titleRef.current.value);
         formData.append('content', textRef.current.value);
-        formData.append('userId', '1');
+        formData.append('userId', userData.userId);
 
         axios.post('/posts', formData, {
             headers: {

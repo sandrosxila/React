@@ -2,7 +2,7 @@
 -- Query: select * from users
 LIMIT 0, 1000
 
--- Date: 2020-07-31 02:31
+-- Date: 2020-08-02 21:05
 */
 INSERT INTO `users` (`userId`,`firstName`,`lastName`,`email`,`password`,`photo`) VALUES (1,'Nick','Jones','nj@gmail.com','$2b$12$zPH/MKhCf2uVfpan8izHQuUChfR5BKZGczYqARezxrb8DJFOkcMCO','A.png');
 INSERT INTO `users` (`userId`,`firstName`,`lastName`,`email`,`password`,`photo`) VALUES (2,'Harrison','Ford','hf@gmail.com','$2b$12$2HIGZ9PDBy6DGh51tv3q7OYGXplhLVvmfcmo2DXSiBuZYYPubC4.q','B.png');

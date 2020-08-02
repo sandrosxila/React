@@ -15,6 +15,7 @@ import AddPost from "./components/post/AddPost";
 import LogIn from "./components/auth/LogIn";
 import UserIsLoggedIn from "./components/auth/UserIsLoggedIn";
 import UserIsNotLoggedIn from "./components/auth/UserIsNotLoggedIn";
+import SignUp from "./components/auth/SignUp";
 
 function App() {
     return (
@@ -29,6 +30,7 @@ function App() {
                         <UserIsLoggedIn exact path='/:userId/posts/:postId' component={Post}/>
                         <UserIsLoggedIn exact path='/edit/:postId' component={EditPost}/>
                         <UserIsNotLoggedIn exact path='/login' component={LogIn}/>
+                        <UserIsNotLoggedIn exact path='/signup' component={SignUp}/>
                     </Switch>
                 </div>
             </Router>

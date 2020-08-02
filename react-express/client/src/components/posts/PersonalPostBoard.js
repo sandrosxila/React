@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import FadeIn from "react-fade-in";
 
 const PersonalPostBoard = (props) => {
+
     const [posts, setPosts] = useState([]);
     const {userId} = useSelector(state => state.auth.userData);
     const [showButtons, setShowButtons] = useState(false);
@@ -26,8 +27,93 @@ const PersonalPostBoard = (props) => {
         setShowButtons(false);
     }
 
+    const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+
+    const onDeleteClick = (postId,image,e) => {
+        axios.delete(`/posts/${postId}`)
+            .then(res => {
+                console.log("IMAGE NAME",image);
+                if(image !== undefined && image!==null){
+                    axios.delete(`/images/remove/${image}`)
+                        .then(res=>{
+                            axios.get(`/users/${props.idInUrl}/posts`)
+                                .then(res => {
+                                    setPosts(res.data);
+                                });
+                        })
+                        .catch(err => {
+                            console.log('image is not deleted');
+                            console.log(err);
+                        });
+                }
+                else {
+                    axios.get(`/users/${props.idInUrl}/posts`)
+                        .then(res => {
+                            setPosts(res.data);
+                        })
+                }
+            })
+            .catch( (err) => {
+                    console.log("FAILED TO DELETE");
+                }
+            )
+    }
+
+    const deleteMessage = (
+        <>
+            <div id="overlay" style={
+                {
+                    position: 'fixed',
+                    width: '100%',
+                    height: '100%',
+                    top: '0',
+                    left: '0',
+                    right: '0',
+                    bottom: '0',
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    zIndex: '2',
+                    cursor: 'pointer'
+                }
+            } onClick={() => {
+                setShowDeleteMessage(!showDeleteMessage);
+            }}>
+            </div>
+            <div style={
+                {
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%,-50%)',
+                    zIndex: '2'
+                }
+            }>
+                <div className="card">
+                    <div className="card-body">
+                        <div className="card-title">
+                            Are you sure about deleting the Client?
+                        </div>
+                        <div className="card-body">
+                            <div className="btn-group pull-left">
+                                <button className="btn btn-danger" onClick={onDeleteClick}>
+                                    Yes, I'm Sure
+                                </button>
+                            </div>
+                            <div className="btn-group pull-right">
+                                <button className="btn btn-outline-success" onClick={() => {
+                                    setShowDeleteMessage(!showDeleteMessage);
+                                }}>
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
     return (
         <>
+            {showDeleteMessage && deleteMessage}
             {
                 posts.map(post => {
                     const {title, image, content, postId} = post;
@@ -63,7 +149,9 @@ const PersonalPostBoard = (props) => {
                                             marginTop: '0.2rem',
                                             fontSize: '1.8rem',
                                             cursor: "pointer"
-                                        }}>
+                                        }} onClick={
+                                            onDeleteClick.bind(this,postId,image)
+                                        }>
                                         </i>
                                     </div>
                                 </FadeIn>

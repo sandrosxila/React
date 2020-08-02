@@ -44,8 +44,8 @@ router.post('/', (req, res) => {
     if (title !== undefined && image !== undefined && content !== undefined && userId !== undefined) {
         if(req.files === null){
             try {
-                db.query(`INSERT INTO \`react_expressjs_mysql\`.\`posts\` (\`title\`, \`content\`, \`userId\`)
-            VALUES ('${title}', '${content}', '${userId}');`,
+                db.query(`INSERT INTO \`react_expressjs_mysql\`.\`posts\` (\`title\`, \`content\`, \`userId\`) VALUES ?`,
+                    [[[ title,content, userId]]],
                     function (err) {
                         console.log(err);
                         if (err) {
@@ -59,8 +59,8 @@ router.post('/', (req, res) => {
         }
         else {
             try {
-                db.query(`INSERT INTO \`react_expressjs_mysql\`.\`posts\` (\`title\`, \`image\`, \`content\`, \`userId\`)
-            VALUES ('${title}', '${image}', '${content}', '${userId}');`,
+                db.query(`INSERT INTO \`react_expressjs_mysql\`.\`posts\` (\`title\`, \`image\`, \`content\`, \`userId\`) VALUES ?`,
+                    [[[title,image,content,userId]]],
                     function (err) {
                         console.log(err);
                         if (err) {
@@ -75,10 +75,15 @@ router.post('/', (req, res) => {
     }
 });
 
-router.delete('/:id', (req) => {
+router.delete('/:id', (req,res) => {
     console.log(req.params);
     const {id} = req.params;
-    db.query(`DELETE FROM \`react_expressjs_mysql\`.\`posts\` WHERE (\`postId\` = '${id}');`);
+    db.query(`DELETE FROM \`react_expressjs_mysql\`.\`posts\` WHERE (\`postId\` = '${id}');`,(err) => {
+        if(err){
+            res.json({success:false});
+        }
+        else res.json({success:true});
+    });
 })
 
 router.put('/:id', (req, res) => {

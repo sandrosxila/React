@@ -24,15 +24,16 @@ function Navbar(props) {
                         </span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarMain">
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <Link to='/' className = "nav-link">
-                                Home
-                            </Link>
-                        </li>
-                    </ul>
                     {
                         isLoggedIn?
+                            <>
+                            <ul className="navbar-nav mr-auto">
+                                <li className="nav-item">
+                                    <Link to='/' className = "nav-link">
+                                        Home
+                                    </Link>
+                                </li>
+                            </ul>
                             <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">
                                     <Link to='/add' className="btn btn-success">
@@ -45,6 +46,7 @@ function Navbar(props) {
                                     </Link>
                                 </li>
                             </ul>
+                            </>
                         :
                             <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">
