@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const InputField = ({type, placeholder, fieldName, name, value, onChange, error}) => {
     // this.onChange = (e) => {
@@ -22,5 +23,15 @@ const InputField = ({type, placeholder, fieldName, name, value, onChange, error}
 
 InputField.defaultProps = {
     type: "text"
+}
+
+InputField.protoTypes = {
+    type: PropTypes.string.isRequired,
+    placeholder : PropTypes.string.isRequired,
+    fieldName: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    error: PropTypes.string
 }
 export default InputField;

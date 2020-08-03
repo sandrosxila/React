@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../../slices/auth/authSlice";
 
-function Navbar(props) {
+function Navbar() {
 
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const dispatch = useDispatch();

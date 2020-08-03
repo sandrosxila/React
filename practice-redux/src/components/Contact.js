@@ -3,6 +3,7 @@ import {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux'
 import {deleteContact} from "../actions/contactActions";
+import PropTypes from "prop-types";
 
 class Contact extends Component {
     state = {
@@ -55,6 +56,16 @@ class Contact extends Component {
             </ul>
         );
     }
+}
+
+Contact.propTypes = {
+    id: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]).isRequired,
+    name:PropTypes.string.isRequired,
+    email:PropTypes.string.isRequired,
+    phone:PropTypes.string.isRequired
 }
 
 export default connect(null,{deleteContact})(Contact);

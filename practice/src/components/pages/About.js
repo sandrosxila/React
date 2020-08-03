@@ -1,5 +1,5 @@
 import React from 'react'
-const About = (props) => {
+const About = () => {
     return (
         <div className="container">
             <h1 className="display-1">About</h1>

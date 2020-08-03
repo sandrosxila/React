@@ -3,6 +3,7 @@ import {Component} from 'react';
 import {Consumer} from '../context';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 class Contact extends Component {
     state = {
@@ -68,6 +69,16 @@ class Contact extends Component {
             </Consumer>
         );
     }
+}
+
+Contact.propTypes = {
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]).isRequired
 }
 
 export default Contact;

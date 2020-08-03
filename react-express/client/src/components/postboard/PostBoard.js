@@ -4,7 +4,7 @@ import UserPanel from "./UserPanel";
 import RecentPosts from "./RecentPosts";
 import UserPosts from './UserPosts';
 
-const PostBoard = (props) => {
+const PostBoard = () => {
 
     const [scrollPosition,setScrollPosition] = useState(0);
 

@@ -76,6 +76,9 @@ class AddContact extends Component {
                 .then(res => {
                     dispatch({type: 'UPDATE_CONTACT', payload: res.data});
                 })
+                .catch(err => {
+                    dispatch({type: 'UPDATE_CONTACT', payload: {id,...updatedContact}});
+                })
             this.setState({
                 name: '',
                 email: '',
