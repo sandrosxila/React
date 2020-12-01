@@ -26,7 +26,7 @@ export const deleteContact = (id) => async dispatch => {
 export const getContact = (id) => async (dispatch,getState) => {
     const {contacts} = getState().contact;
     try{
-        console.log("GETTIN CONTACT "+id);
+        console.log("GETTING CONTACT "+id);
         const res = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
         dispatch({type:GET_CONTACT,payload:res.data});
     }
