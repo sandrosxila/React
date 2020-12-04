@@ -328,10 +328,10 @@ class BTree {
         let queue = [{
             id : 0,
             level : 0,
-            node:root,
+            node: root,
             parent : -1
         }];
-
+        let lastParent = -2;
         for(let i = 0; queue.length !== 0; ){
             const {id, level, node, parent} = queue.shift();
             // console.log("node is here:",node);
@@ -348,7 +348,16 @@ class BTree {
                 queue.push({id: i, level: level + 1, node: node.last().rightChild, parent: id});
             }
 
-            nodes.push({
+            if(typeof nodes[level] === 'undefined'){
+                nodes.push([]);
+            }
+
+            if(lastParent !== parent) {
+                nodes[level].push([]);
+                lastParent = parent;
+            }
+            // console.log("nodes level",nodes[level]);
+            nodes[level][nodes[level].length - 1].push({
                 id,
                 elements:[...node.elements.map(element => element.value)],
                 level,
