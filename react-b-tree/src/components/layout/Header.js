@@ -24,8 +24,10 @@ const Header = props => {
                         }/>
                         {/*insertion*/}
                         <button className="btn btn-sm btn-outline-success mr-2" onClick={() => {
-                            if(document.getElementById('input').value.length > 0)
+                            if(document.getElementById('input').value.length > 0){
                                 dispatch(insert(value));
+                            }
+
                             document.getElementById('input').value = '';
                         }}>Insert</button>
                         {/*deletion*/}

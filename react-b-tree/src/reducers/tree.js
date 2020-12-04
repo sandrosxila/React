@@ -6,15 +6,15 @@ const treeReducer = (state = [], action) => {
     switch (action.type) {
         case "INITIALIZE": {
             if(!isNaN(action.payload))
-                tree = new BTree(parseInt(action.payload));
+                tree = new BTree(parseFloat(action.payload));
             return tree.bfs();
         }
         case "INSERT": {
-            tree.insert(isNaN(action.payload) ? action.payload : parseInt(action.payload));
+            tree.insert(isNaN(action.payload) ? action.payload : parseFloat(action.payload));
             return tree.bfs();
         }
         case "ERASE": {
-            tree.erase(isNaN(action.payload) ? action.payload : parseInt(action.payload));
+            tree.erase(isNaN(action.payload) ? action.payload : parseFloat(action.payload));
             return tree.bfs();
         }
         default:

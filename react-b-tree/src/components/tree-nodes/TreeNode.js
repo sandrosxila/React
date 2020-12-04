@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {animated, config, useSpring, useTransition} from 'react-spring';
+import {useSelector} from "react-redux";
 
 
 function TreeNode(props) {
 
-    const {elements, isLeaf, id, boundsById, setXById} = props;
+    const {elements, isLeaf, id, boundsById, setXById, arrangePositions} = props;
+    const levels = useSelector(state => state.tree);
 
 
     const [x, setX] = useState(0);
@@ -14,6 +16,9 @@ function TreeNode(props) {
         height: `${window.innerHeight / 15}px`,
         position: 'relative',
         transform: `translate3d(${x + 15}px,${0}px,0)`,
+        onRest: () => {
+            arrangePositions(levels);
+        }
     });
 
     const elementTransitions = useTransition(elements, item => item, {
@@ -41,7 +46,7 @@ function TreeNode(props) {
 
 
     return (
-        <animated.div className={"col-auto mr-1"} id={`node-${id}`} style={treeNodeProps}>
+        <animated.div className={isLeaf ? "col-auto mr-1" : "col-auto"} id={`node-${id}`} style={treeNodeProps}>
             <div className="row p-1 align-items-center"  style={{height: `${window.innerHeight / 15}px`}}>
                 {
                     elementTransitions.map((({item, key, props}) => (
