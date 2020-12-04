@@ -20,10 +20,12 @@ function App() {
         "linear-gradient(-20deg, #ddd6f3 0%, #faaca8 100%, #faaca8 100%)",
         "linear-gradient(45deg, blue 20%, fuchsia)"
     ];
+    const boundsById = {};
+    const setXById = {};
     return (
         <div>
-            <Header />
-            <Scene/>
+            <Header setXById = {setXById} boundsById = {boundsById}/>
+            <Scene boundsById = {boundsById} setXById = {setXById}/>
         </div>
     )
 }

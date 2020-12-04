@@ -40,9 +40,9 @@ function Level(props) {
         boundsById[`level-${level}`] = bounds;
     }, [bounds, boundsById, isLeaf, level]);
 
-    useEffect(() => {
-        console.log(`level-${level}: `, bounds.left);
-    }, [bounds, level]);
+    // useEffect(() => {
+    //     console.log(`level-${level}: `, bounds.left);
+    // }, [bounds, level]);
 
     return (
         <animated.div className={"row flex-nowrap"} id={`level-${level}`} ref={ref} style={treeLevelProps}>

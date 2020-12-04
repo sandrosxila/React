@@ -32,7 +32,7 @@ const Cluster = (props) => {
             <div  className="row flex-nowrap align-items-center">
                 {
                     nodes.map((node, key) => (
-                            <TreeNode key={key} id={node.id} isLeaf={isLeaf} elements={node.elements} setXById={setXById}
+                            <TreeNode key={key} id={node.id} isLeaf={node.isLeaf} elements={node.elements} setXById={setXById}
                                       boundsById={boundsById} level={level} arrangePositions={arrangePositions}/>
                         )
                     )

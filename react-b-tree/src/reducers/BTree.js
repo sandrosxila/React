@@ -361,7 +361,8 @@ class BTree {
                 id,
                 elements:[...node.elements.map(element => element.value)],
                 level,
-                parent
+                parent,
+                isLeaf: node.isLeaf
             });
         }
 

@@ -5,8 +5,9 @@ import Level from "./tree-nodes/Level";
 function Scene(props) {
 
     const levels = useSelector(state => state.tree);
-    const boundsById = {};
-    const setXById = {}
+
+    const {setXById, boundsById} = props;
+
     const arrangePositions = (levels) => {
         levels.map((levelItems, levelIndex) => {
             if (document.getElementById(`level-${levelIndex}`)) {
@@ -33,8 +34,8 @@ function Scene(props) {
                                 // leftSum += (rightNodeBounds.left + rightNodeBounds.width - leftNodeBounds.left);
                                 lastParentIndex = nodes[0].parent;
                             }
-                            console.log(`node-${nodes[0].parent}`, setXById[`node-${nodes[0].parent}`],
-                                leftNodeBounds.left, leftSum);
+                            // console.log(`node-${nodes[0].parent}`, setXById[`node-${nodes[0].parent}`],
+                            //     leftNodeBounds.left, leftSum);
                         }
                     }
                 });

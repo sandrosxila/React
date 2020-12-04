@@ -17,6 +17,8 @@ function TreeNode(props) {
         position: 'relative',
         transform: `translate3d(${x + 15}px,${0}px,0)`,
         onRest: () => {
+            if(isLeaf)
+                setX(0);
             arrangePositions(levels);
         }
     });
@@ -44,13 +46,18 @@ function TreeNode(props) {
         setXById[`node-${id}`] = setX;
     },[id, setXById]);
 
+    // useEffect(() => {
+    //     if(isLeaf)
+    //         setX(0);
+    //     console.log(`node-${id} changed:`, isLeaf);
+    // },[isLeaf]);
 
     return (
         <animated.div className={isLeaf ? "col-auto mr-1" : "col-auto"} id={`node-${id}`} style={treeNodeProps}>
             <div className="row p-1 align-items-center"  style={{height: `${window.innerHeight / 15}px`}}>
                 {
-                    elementTransitions.map((({item, key, props}) => (
-                            <animated.div className="col mx-1" key={key} style={
+                    elementTransitions.map((({item, key, props},idx) => (
+                            <animated.div className="col mx-1" key={idx} style={
                                 props
                             }>
                                 {item}

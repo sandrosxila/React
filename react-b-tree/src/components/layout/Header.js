@@ -5,6 +5,9 @@ import {insert, initialize, erase} from "../../actions/index";
 const Header = props => {
     const dispatch = useDispatch();
     const [value, setValue] = useState(null);
+
+    const {setXById, boundsByID} = props;
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
