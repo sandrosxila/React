@@ -309,7 +309,7 @@ class BTree {
         this.recentNode = current;
     }
 
-    print_all(current = this.root){
+    print_all(current = this.root) {
         current.elements.forEach(
             i => {
                 if (i.hasLeftChild())
@@ -323,46 +323,64 @@ class BTree {
             this.print_all(current.last().rightChild);
     }
 
-    bfs(root = this.root){
+    bfs(root = this.root) {
         let nodes = [];
         let queue = [{
-            id : 0,
-            level : 0,
+            id: 0,
+            level: 0,
             node: root,
-            parent : -1
+            parent: -1,
+            parentElement: 0,
+            side: 'left'
         }];
         let lastParent = -2;
-        for(let i = 0; queue.length !== 0; ){
-            const {id, level, node, parent} = queue.shift();
+        for (let i = 0; queue.length !== 0;) {
+            const {id, level, node, parent,parentElement,side} = queue.shift();
             // console.log("node is here:",node);
             node.elements.forEach(
-                element => {
+                (element, index) => {
                     if (element.hasLeftChild()) {
                         i++;
-                        queue.push({id: i, level: level + 1, node: element.leftChild, parent: id});
+                        queue.push({
+                            id: i,
+                            level: level + 1,
+                            node: element.leftChild,
+                            parent: id,
+                            parentElement: index,
+                            side: 'left'
+                        });
                     }
                 }
             )
             if (node.hasRightmostChild()) {
                 i++;
-                queue.push({id: i, level: level + 1, node: node.last().rightChild, parent: id});
+                queue.push({
+                    id: i,
+                    level: level + 1,
+                    node: node.last().rightChild,
+                    parent: id,
+                    parentElement: node.size() - 1,
+                    side: 'right'
+                });
             }
 
-            if(typeof nodes[level] === 'undefined'){
+            if (typeof nodes[level] === 'undefined') {
                 nodes.push([]);
             }
 
-            if(lastParent !== parent) {
+            if (lastParent !== parent) {
                 nodes[level].push([]);
                 lastParent = parent;
             }
             // console.log("nodes level",nodes[level]);
             nodes[level][nodes[level].length - 1].push({
                 id,
-                elements:[...node.elements.map(element => element.value)],
+                elements: [...node.elements.map(element => element.value)],
                 level,
                 parent,
-                isLeaf: node.isLeaf
+                isLeaf: node.isLeaf,
+                parentElement,
+                side
             });
         }
 

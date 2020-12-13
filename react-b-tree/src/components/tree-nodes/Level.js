@@ -5,14 +5,14 @@ import {useTransition, animated, config, useSpring} from 'react-spring';
 import Cluster from "./Cluster";
 
 function Level(props) {
-    const {level, clusters, isLeaf, boundsById, setXById, arrangePositions} = props;
+    const {level, clusters, isLeaf, boundsById, setXById, arrangePositions,arrangeLines} = props;
 
     const [ref, bounds] = useMeasure();
 
     const [x, setX] = useState(window.innerWidth / 2);
     const [y, setY] = useState(5 + level * (window.innerHeight / 8));
 
-    // const levels = useSelector(state => state.tree);
+    const levels = useSelector(state => state.tree);
 
     const treeLevelProps = useSpring(
         {
@@ -24,10 +24,13 @@ function Level(props) {
             config: {duration: isLeaf ? 735 : 0},
             from: {
                 opacity: 0,
-                transform: `translate3d(${x}px,${y}px,0)`
+                // transform: `translate3d(${x}px,${y}px,0)`
             },
             onStart: () => {
                 // arrangePositions(levels);
+            },
+            onFrame: () => {
+                // arrangeLines(levels);
             }
         }
     );
@@ -49,7 +52,9 @@ function Level(props) {
             {
                 clusters.map((cluster, key) => (
                     <Cluster key={key} id={cluster[0].parent + 1} level={level} nodes={cluster} isLeaf={isLeaf}
-                             setXById={setXById} boundsById={boundsById} arrangePositions={arrangePositions}/>
+                             setXById={setXById} boundsById={boundsById} arrangePositions={arrangePositions}
+                             arrangeLines={arrangeLines}
+                    />
                 ))
             }
         </animated.div>
