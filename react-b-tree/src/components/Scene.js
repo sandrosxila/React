@@ -66,7 +66,7 @@ function Scene(props) {
                             const bX = end.getBoundingClientRect().x + (end.getBoundingClientRect().width / 2) - start.getBoundingClientRect().x;
                             const bY = end.getBoundingClientRect().y - start.getBoundingClientRect().y;
 
-                            console.log(aX, aY);
+                            // console.log(aX, aY);
 
                             //find center points;
                             const centerX = (aX + bX) / 2;

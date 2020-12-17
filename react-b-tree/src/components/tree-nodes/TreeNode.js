@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 
 function TreeNode(props) {
 
-    const {elements, isLeaf, id, setXById, arrangePositions, arrangeLines} = props;
+    const {elements, isLeaf, id, setXById, arrangePositions, arrangeLines, level} = props;
     const levels = useSelector(state => state.tree);
 
     const [x, setX] = useState(0);
@@ -19,15 +19,15 @@ function TreeNode(props) {
             if (isLeaf) {
                 setX(0);
             }
-            console.log(`node-${id} is resting`);
-            setTimeout(() => arrangeLines(levels),1800);
+            // console.log(`node-${id} is resting`);
+            setTimeout(() => arrangeLines(levels), 1800);
             arrangePositions(levels);
-            
-            if(levels.length === 1){
+
+            if (levels.length === 1) {
                 const line1 = document.querySelector(`.line-${0}-${0}-left`);
                 const line2 = document.querySelector(`.line-${0}-${0}-right`);
-                if(line1)line1.style.width = 0;
-                if(line2)line2.style.width = 0;
+                if (line1) line1.style.width = 0;
+                if (line2) line2.style.width = 0;
             }
         }
     });
@@ -41,7 +41,7 @@ function TreeNode(props) {
         enter: {
             opacity: 0.8,
             height: `${window.innerHeight / 15 / 1.5}px`,
-            background: "rgba(0, 0, 0, 0) linear-gradient(-225deg, rgba(227, 253, 245, 0.32) 0%, rgba(255, 230, 250, 0.79) 100%) repeat scroll 0% 0%",
+            // background: "rgba(0, 0, 0, 0) linear-gradient(-225deg, rgba(227, 253, 245, 0.32) 0%, rgba(255, 230, 250, 0.79) 100%) repeat scroll 0% 0%",
             textAlign: "center",
             lineHeight: `${window.innerHeight / 15 / 1.5}px`,
             maxWidth: '2000px'
@@ -94,7 +94,13 @@ function TreeNode(props) {
                                         </div>
                                     </div>
                                 }
-                                {item}
+                                <div style={{
+                                    background: "rgba(0, 0, 0, 0) linear-gradient(-225deg, rgba(227, 253, 245, 0.32) 0%, rgba(255, 230, 250, 0.79) 100%) repeat scroll 0% 0%"
+                                }} id={`element-${id}-${idx}`} className={`row h-100`}>
+                                    <div className={`col-sm-12 text-center align-self-center my-auto`}>
+                                        {item}
+                                    </div>
+                                </div>
                                 <div style={{
                                     position: "absolute",
                                     left: "100%",

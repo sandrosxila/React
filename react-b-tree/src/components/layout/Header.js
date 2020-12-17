@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {insert, initialize, erase} from "../../actions/index";
 
 const Header = props => {
     const dispatch = useDispatch();
     const [value, setValue] = useState(null);
+    const levels = useSelector(state => state.tree);
 
-    const {setXById, boundsByID} = props;
+    const {findElement} = props;
 
     return (
         <div>
@@ -40,15 +41,21 @@ const Header = props => {
                             document.getElementById('input').value = '';
                         }}>Erase</button>
                         {/*find*/}
-                        <button className="btn btn-sm btn-outline-info mr-2">Find</button>
+                        <button className="btn btn-sm btn-outline-info mr-2" onClick={() => {
+                            if(document.getElementById('input').value.length > 0)
+                                findElement(isNaN(value) ? value : parseFloat(value),levels);
+                            document.getElementById('input').value = '';
+                        }}>Find</button>
                         {/*clear*/}
                         <button className="btn btn-sm btn-outline-secondary mr-2" onClick={() => {
-                            dispatch(initialize(document.getElementById('degree').value))
+                            const comboBox = document.getElementById('degree');
+                            const value = comboBox[comboBox.selectedIndex].value;
+                            dispatch(initialize(value === "Degree"? '5' : value));
                         }}>Clear</button>
 
                         <select id="degree" className="custom-select custom-select-sm" defaultValue={"Degree"} onChange={
                             e => {
-                                console.log(dispatch(initialize(e.target.value)));
+                                dispatch(initialize(e.target.value));
                             }
                         }>
                             <option className="dropdown-item" value="Degree" disabled hidden>Degree</option>
