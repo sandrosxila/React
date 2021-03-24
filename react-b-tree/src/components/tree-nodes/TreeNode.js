@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {animated, config, useSpring, useTransition} from 'react-spring';
 import {useSelector} from "react-redux";
-import {arrangeLines, arrangePositions, clearRootElementLines} from "../../functions/drawers";
+import {arrangeLines, arrangePositions} from "../../functions/drawers";
+import {grads} from "../../constants/constants";
 
 function TreeNode(props) {
 
@@ -11,7 +12,7 @@ function TreeNode(props) {
     const [x, setX] = useState(0);
 
     const treeNodeProps = useSpring({
-        background: "linear-gradient(120deg, #f093fb 0%, #f5576c 100%)",
+        background: grads[4],
         height: `${window.innerHeight / 15}px`,
         position: 'relative',
         transform: `translate3d(${x + 15}px,${0}px,0)`,
@@ -19,12 +20,10 @@ function TreeNode(props) {
             if (isLeaf) {
                 setX(0);
             }
-            setTimeout(() => arrangeLines(levels), 1800);
+            setTimeout(() => {
+                arrangeLines(levels);
+            }, 1800);
             arrangePositions(levels, setXById);
-
-            if (levels.length === 1) {
-                clearRootElementLines();
-            }
         }
     });
 
@@ -37,7 +36,6 @@ function TreeNode(props) {
         enter: {
             opacity: 0.8,
             height: `${window.innerHeight / 15 / 1.5}px`,
-            // background: "rgba(0, 0, 0, 0) linear-gradient(-225deg, rgba(227, 253, 245, 0.32) 0%, rgba(255, 230, 250, 0.79) 100%) repeat scroll 0% 0%",
             textAlign: "center",
             lineHeight: `${window.innerHeight / 15 / 1.5}px`,
             maxWidth: '2000px'
@@ -48,7 +46,7 @@ function TreeNode(props) {
     });
 
     const treeLineStyle = {
-        background: "linear-gradient(120deg, #f093fb 0%, #f5576c 100%)",
+        background: grads[4],
         height: "0.2rem",
         borderRadius: "0.1rem",
         position: "absolute",
@@ -56,14 +54,40 @@ function TreeNode(props) {
         top: "0%"
     };
 
+    const treeLeafLineStyle = {
+        background: grads[4],
+        height: "0.2rem",
+        borderRadius: "0.1rem",
+        position: "absolute",
+        left: "0%",
+        top: "0%",
+        width: "0"
+    }
+
+    const nodeRightLineStyle = {
+        position: "absolute",
+        right: "100%",
+        top: "50%"
+    }
+
+    const nodeLeftLineStyle = {
+        position: "absolute",
+        left: "100%",
+        top: "50%"
+    }
+
+    const elementStyle = {
+        background: "rgba(0, 0, 0, 0) linear-gradient(-225deg, rgba(227, 253, 245, 0.32) 0%, " +
+            "rgba(255, 230, 250, 0.79) 100%) repeat scroll 0% 0%"
+    }
+
     useEffect(() => {
         setXById[`node-${id}`] = setX;
     }, [id, setXById]);
 
 
     return (
-        <animated.div className={isLeaf ? "col-auto mr-1" : "col-auto"} id={`node-${id}`}
-                      style={treeNodeProps}>
+        <animated.div id={`node-${id}`} className={isLeaf ? "col-auto mr-1" : "col-auto"} style={treeNodeProps}>
             <div className="row p-1 align-items-center" style={{height: `${window.innerHeight / 15}px`}}>
                 {
                     elementTransitions.map((({item, key, props}, idx) => (
@@ -73,39 +97,24 @@ function TreeNode(props) {
                                 {
                                     idx === 0
                                     &&
-                                    <div style={{
-                                        position: "absolute",
-                                        right: "100%",
-                                        top: "50%"
-                                    }}
-                                         className={`mr-1 node-${id}-${idx}-left`}
-                                    >
-                                        <div style={treeLineStyle}
-                                             className={`line-${id}-${idx}-left`}
-                                        >
+                                    <div style={nodeRightLineStyle} className={`mr-1 node-${id}-${idx}-left`}>
+                                        <div style={isLeaf ? treeLeafLineStyle : treeLineStyle}
+                                             className={`line-${id}-${idx}-left`}>
                                         </div>
                                     </div>
                                 }
-                                <div style={{
-                                    background: "rgba(0, 0, 0, 0) linear-gradient(-225deg, rgba(227, 253, 245, 0.32) 0%, rgba(255, 230, 250, 0.79) 100%) repeat scroll 0% 0%"
-                                }} id={`element-${id}-${idx}`} className={`row h-100`}>
+                                <div style={elementStyle} id={`element-${id}-${idx}`} className={`row h-100`}>
                                     <div className={`col-sm-12 text-center align-self-center my-auto`}>
                                         {item}
                                     </div>
                                 </div>
-                                <div style={{
-                                    position: "absolute",
-                                    left: "100%",
-                                    top: "50%"
-                                }}
+                                <div style={nodeLeftLineStyle}
                                      className={`ml-1 node-${id}-${idx}-right node-${id}-${idx + 1}-left`}
                                 >
-                                    <div style={treeLineStyle}
-                                         className={`line-${id}-${idx}-right line-${id}-${idx + 1}-left`}
-                                    >
+                                    <div style={isLeaf ? treeLeafLineStyle : treeLineStyle}
+                                         className={`line-${id}-${idx}-right line-${id}-${idx + 1}-left`}>
                                     </div>
                                 </div>
-
                             </animated.div>
                         )
                     ))

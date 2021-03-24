@@ -15,3 +15,7 @@ export const grads = [
     "linear-gradient(-20deg, #ddd6f3 0%, #faaca8 100%, #faaca8 100%)",
     "linear-gradient(45deg, blue 20%, fuchsia)"
 ];
+
+export const boundsById = {};
+
+export const setXById = {};

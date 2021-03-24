@@ -1,13 +1,10 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import Level from "./tree-nodes/Level";
+import {boundsById, setXById} from "../constants/constants";
 
 function Scene(props) {
-
     const levels = useSelector(state => state.tree);
-
-    const {setXById, boundsById} = props;
-
     return (
         <div>
             {

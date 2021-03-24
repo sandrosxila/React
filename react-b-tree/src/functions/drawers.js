@@ -74,11 +74,3 @@ export const arrangeLines = (levels) => {
         }
     })
 }
-
-// clearing edges of the root element
-export const clearRootElementLines = () => {
-    const line1 = document.querySelector(`.line-${0}-${0}-left`);
-    const line2 = document.querySelector(`.line-${0}-${0}-right`);
-    if (line1) line1.style.width = 0;
-    if (line2) line2.style.width = 0;
-}

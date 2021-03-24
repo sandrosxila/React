@@ -1,4 +1,4 @@
-import BTree from "./BTree";
+import BTree from "../data-structures/BTree";
 let tree = new BTree(5);
 
 const treeReducer = (state = [], action) => {
