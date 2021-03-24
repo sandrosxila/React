@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {animated, config, useSpring, useTransition} from 'react-spring';
 import {useSelector} from "react-redux";
-
+import {arrangeLines, arrangePositions, clearRootElementLines} from "../../functions/drawers";
 
 function TreeNode(props) {
 
-    const {elements, isLeaf, id, setXById, arrangePositions, arrangeLines, level} = props;
+    const {elements, isLeaf, id, setXById} = props;
     const levels = useSelector(state => state.tree);
 
     const [x, setX] = useState(0);
@@ -19,15 +19,11 @@ function TreeNode(props) {
             if (isLeaf) {
                 setX(0);
             }
-            // console.log(`node-${id} is resting`);
             setTimeout(() => arrangeLines(levels), 1800);
-            arrangePositions(levels);
+            arrangePositions(levels, setXById);
 
             if (levels.length === 1) {
-                const line1 = document.querySelector(`.line-${0}-${0}-left`);
-                const line2 = document.querySelector(`.line-${0}-${0}-right`);
-                if (line1) line1.style.width = 0;
-                if (line2) line2.style.width = 0;
+                clearRootElementLines();
             }
         }
     });
@@ -48,10 +44,6 @@ function TreeNode(props) {
         },
         leave: {
             display: 'none',
-        },
-        onFrame: () => {
-            // arrangeLines(levels);
-            // console.log(`element is on frame`)
         }
     });
 

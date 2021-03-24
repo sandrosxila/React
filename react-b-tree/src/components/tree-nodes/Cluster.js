@@ -1,27 +1,20 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {useTransition, animated, config, useSpring} from 'react-spring';
+import React, {useState, useEffect} from 'react';
+import {animated, useSpring} from 'react-spring';
 import TreeNode from "./TreeNode";
-import Level from "./Level";
-import {useSelector} from "react-redux";
 
 const Cluster = (props) => {
-    const {level, isLeaf, nodes, id, boundsById, setXById, arrangePositions, arrangeLines} = props;
-    // const levels = useSelector(state => state.tree);
+    const {level, isLeaf, nodes, id, boundsById, setXById} = props;
 
     const [x, setX] = useState(0);
 
     const treeClusterProps = useSpring(isLeaf ?
         {
             position: 'relative',
-            onRest: () => {
-                // arrangePositions(levels);
-            }
         } :
         {
-            transform: `translate3d(${0}px,${0}px,0)`
+            transform: `translate3d(${0}px,${0}px,0)`,
         }
     );
-
 
     useEffect(() => {
         setXById[`cluster-${id}`] = setX;
@@ -32,11 +25,17 @@ const Cluster = (props) => {
             <div className="row flex-nowrap align-items-center">
                 {
                     nodes.map((node, key) => (
-                            <TreeNode key={key} id={node.id} isLeaf={node.isLeaf} elements={node.elements}
-                                      setXById={setXById}
-                                      boundsById={boundsById} level={level} arrangePositions={arrangePositions}
-                                      parent={node.parent} parentElement={node.parentElement} side={node.side}
-                                      arrangeLines={arrangeLines}
+                            <TreeNode
+                                key={key}
+                                setXById={setXById}
+                                boundsById={boundsById}
+                                level={level}
+                                id={node.id}
+                                isLeaf={node.isLeaf}
+                                elements={node.elements}
+                                parent={node.parent}
+                                parentElement={node.parentElement}
+                                side={node.side}
                             />
                         )
                     )
