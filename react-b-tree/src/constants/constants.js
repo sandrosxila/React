@@ -19,3 +19,5 @@ export const grads = [
 export const boundsById = {};
 
 export const setXById = {};
+
+export const initialWindow = {width: 0, height: 0};

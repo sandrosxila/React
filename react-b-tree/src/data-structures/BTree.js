@@ -202,16 +202,16 @@ class BTree {
         let leftSibling = this.getLeftSibling(node, side, parentPosition);
         let rightSibling = this.getRightSibling(node, side, parentPosition);
 
-//        case 3: when leaf node has minimum number of elements and left-sibling with more than minimum number of elements
+//        case 3: when a node has minimum number of elements and left-sibling with more than minimum number of elements
         if (leftSibling != null && leftSibling.size() > this.minElements)
             this.propagateFromLeftSibling(node, side ? parentPosition : parentPosition - 1, leftSibling);
-//        case 4: when leaf node has minimum number of elements and right-sibling with more than minimum number of elements
+//        case 4: when a node has minimum number of elements and right-sibling with more than minimum number of elements
         else if (rightSibling != null && rightSibling.size() > this.minElements)
             this.propagateFromRightSibling(node, side ? parentPosition + 1 : parentPosition, rightSibling);
-//        case 5: when leaf node has minimum number of elements and left-sibling with minimum number of elements
+//        case 5: when a node has minimum number of elements and left-sibling with minimum number of elements
         else if (leftSibling != null && leftSibling.size() <= this.minElements)
             this.propagateDownFromLeft(node, side ? parentPosition : parentPosition - 1, leftSibling);
-//        case 6: when leaf node has minimum number of elements and right-sibling with minimum number of elements
+//        case 6: when a node has minimum number of elements and right-sibling with minimum number of elements
         else if (rightSibling != null && rightSibling.size() <= this.minElements)
             this.propagateDownFromRight(node, side ? parentPosition + 1 : parentPosition, rightSibling);
         this.recentNode = node;
@@ -245,7 +245,7 @@ class BTree {
             if (node.size() > this.minElements) {
                 node.popAt(position);
             }
-//            case 2: when leaf-node has not more than minimum number of elements
+//            case 2: when leaf-node does not have more than minimum number of elements
             else {
                 node.popAt(position);
                 this.balance(node, parentPosition, side);

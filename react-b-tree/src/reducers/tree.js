@@ -7,7 +7,7 @@ const treeReducer = (state = [], action) => {
         case "INITIALIZE": {
             if(!isNaN(action.payload))
                 tree = new BTree(parseFloat(action.payload));
-            return tree.bfs();
+            return [];
         }
         case "INSERT": {
             tree.insert(isNaN(action.payload) ? action.payload : parseFloat(action.payload));

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {animated, config, useSpring, useTransition} from 'react-spring';
 import {useSelector} from "react-redux";
 import {arrangeLines, arrangePositions} from "../../functions/drawers";
-import {grads} from "../../constants/constants";
+import {grads, initialWindow} from "../../constants/constants";
 
 function TreeNode(props) {
 
@@ -13,11 +13,11 @@ function TreeNode(props) {
 
     const treeNodeProps = useSpring({
         background: grads[4],
-        height: `${window.innerHeight / 15}px`,
+        height: `${initialWindow.height / 15}px`,
         position: 'relative',
         transform: `translate3d(${x + 15}px,${0}px,0)`,
         onRest: () => {
-            if (isLeaf) {
+            if (isLeaf && x) {
                 setX(0);
             }
             setTimeout(() => {
@@ -35,9 +35,9 @@ function TreeNode(props) {
         },
         enter: {
             opacity: 0.8,
-            height: `${window.innerHeight / 15 / 1.5}px`,
+            height: `${initialWindow.height / 15 / 1.5}px`,
             textAlign: "center",
-            lineHeight: `${window.innerHeight / 15 / 1.5}px`,
+            lineHeight: `${initialWindow.height / 15 / 1.5}px`,
             maxWidth: '2000px'
         },
         leave: {
@@ -88,7 +88,7 @@ function TreeNode(props) {
 
     return (
         <animated.div id={`node-${id}`} className={isLeaf ? "col-auto mr-1" : "col-auto"} style={treeNodeProps}>
-            <div className="row p-1 align-items-center" style={{height: `${window.innerHeight / 15}px`}}>
+            <div className="row p-1 align-items-center" style={{height: `${initialWindow.height / 15}px`}}>
                 {
                     elementTransitions.map((({item, key, props}, idx) => (
                             <animated.div className="col mx-1" key={idx} style={

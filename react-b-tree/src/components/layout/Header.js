@@ -3,13 +3,18 @@ import {useDispatch, useSelector} from "react-redux";
 import {insert, initialize, erase} from "../../actions/index";
 import {findElement} from "../../functions/motorics";
 import {range} from "../../functions/helpers";
+import useMeasure from "react-use-measure";
 
 const Header = props => {
+
+    const {headerHeightSetter} = props;
+
     const dispatch = useDispatch();
     const [inputValue, setInputValue] = useState('');
     const [selectValue, setSelectValue] = useState('Degree');
     const levels = useSelector(state => state.tree);
     const optionValues = range({start: 3, stop: 10});
+    const [ref, bounds] = useMeasure()
 
     const onInputChange = (e) => {
         setInputValue(e.target.value);
@@ -52,8 +57,12 @@ const Header = props => {
         dispatch(initialize(selectValue));
     }, [selectValue])
 
+    useEffect(() => {
+        headerHeightSetter(bounds.height);
+    },[bounds, headerHeightSetter]);
+
     return (
-        <div>
+        <div ref={ref}>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <a className="navbar-brand" href="#">B-tree Visualization</a>
 
