@@ -17,6 +17,14 @@ const treeReducer = (state = [], action) => {
             tree.erase(isNaN(action.payload) ? action.payload : parseFloat(action.payload));
             return tree.bfs();
         }
+        case "UNDO": {
+            tree.undo();
+            return tree.bfs();
+        }
+        case "REDO": {
+            tree.redo();
+            return tree.bfs();
+        }
         default:
             return state;
     }

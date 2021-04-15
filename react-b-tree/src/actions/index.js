@@ -17,3 +17,15 @@ export const initialize = (degree) => {
         payload: degree
     }
 }
+
+export const undo = () => {
+    return {
+        type: "UNDO"
+    }
+}
+
+export const redo = () => {
+    return {
+        type: "REDO"
+    }
+}

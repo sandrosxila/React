@@ -54,25 +54,15 @@ function TreeNode(props) {
         top: "0%"
     };
 
-    const treeLeafLineStyle = {
-        background: grads[4],
-        height: "0.2rem",
-        borderRadius: "0.1rem",
-        position: "absolute",
-        left: "0%",
-        top: "0%",
-        width: "0"
-    }
-
     const nodeRightLineStyle = {
         position: "absolute",
-        right: "100%",
+        left: "100%",
         top: "50%"
     }
 
     const nodeLeftLineStyle = {
         position: "absolute",
-        left: "100%",
+        right: "100%",
         top: "50%"
     }
 
@@ -97,8 +87,8 @@ function TreeNode(props) {
                                 {
                                     idx === 0
                                     &&
-                                    <div style={nodeRightLineStyle} className={`mr-1 node-${id}-${idx}-left`}>
-                                        <div style={isLeaf ? treeLeafLineStyle : treeLineStyle}
+                                    <div style={isLeaf ? {display:'none'} : nodeLeftLineStyle } className={`mr-1 node-${id}-${idx}-left`}>
+                                        <div style={treeLineStyle}
                                              className={`line-${id}-${idx}-left`}>
                                         </div>
                                     </div>
@@ -108,10 +98,10 @@ function TreeNode(props) {
                                         {item}
                                     </div>
                                 </div>
-                                <div style={nodeLeftLineStyle}
+                                <div style={isLeaf ? {display:'none'} : nodeRightLineStyle}
                                      className={`ml-1 node-${id}-${idx}-right node-${id}-${idx + 1}-left`}
                                 >
-                                    <div style={isLeaf ? treeLeafLineStyle : treeLineStyle}
+                                    <div style={treeLineStyle}
                                          className={`line-${id}-${idx}-right line-${id}-${idx + 1}-left`}>
                                     </div>
                                 </div>

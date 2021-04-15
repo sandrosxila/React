@@ -10,7 +10,7 @@ function App() {
     useEffect(() => {
         initialWindow.height = window.innerHeight;
         initialWindow.width = window.innerWidth;
-    },[])
+    },[]);
 
     return (
         <div>
