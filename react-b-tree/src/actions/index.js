@@ -29,3 +29,10 @@ export const redo = () => {
         type: "REDO"
     }
 }
+
+export const change = (index) => {
+    return {
+        type: "CHANGE",
+        payload: index
+    }
+}

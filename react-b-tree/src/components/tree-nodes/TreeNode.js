@@ -2,17 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {animated, config, useSpring, useTransition} from 'react-spring';
 import {useSelector} from "react-redux";
 import {arrangeLines, arrangePositions} from "../../functions/drawers";
-import {grads, initialWindow} from "../../constants/constants";
+import {nodeParams, elementParams, grads, initialWindow} from "../../constants/constants";
 
 function TreeNode(props) {
 
     const {elements, isLeaf, id, setXById} = props;
     const levels = useSelector(state => state.tree);
+    const themeIndex = useSelector(state => state.theme);
+    const {nodeBorderRadius} = nodeParams[themeIndex];
 
     const [x, setX] = useState(0);
 
     const treeNodeProps = useSpring({
-        background: grads[4],
         height: `${initialWindow.height / 15}px`,
         position: 'relative',
         transform: `translate3d(${x + 15}px,${0}px,0)`,
@@ -46,7 +47,7 @@ function TreeNode(props) {
     });
 
     const treeLineStyle = {
-        background: grads[4],
+        background: grads[themeIndex],
         height: "0.2rem",
         borderRadius: "0.1rem",
         position: "absolute",
@@ -67,8 +68,13 @@ function TreeNode(props) {
     }
 
     const elementStyle = {
-        background: "rgba(0, 0, 0, 0) linear-gradient(-225deg, rgba(227, 253, 245, 0.32) 0%, " +
-            "rgba(255, 230, 250, 0.79) 100%) repeat scroll 0% 0%"
+        ...elementParams[themeIndex]
+    }
+
+    const treeNodeStyle = {
+        background: grads[themeIndex],
+        height: `${initialWindow.height / 15}px`,
+        borderRadius : nodeBorderRadius
     }
 
     useEffect(() => {
@@ -78,7 +84,7 @@ function TreeNode(props) {
 
     return (
         <animated.div id={`node-${id}`} className={isLeaf ? "col-auto mr-1" : "col-auto"} style={treeNodeProps}>
-            <div className="row p-1 align-items-center" style={{height: `${initialWindow.height / 15}px`}}>
+            <div className="row p-1 align-items-center" style={treeNodeStyle}>
                 {
                     elementTransitions.map((({item, key, props}, idx) => (
                             <animated.div className="col mx-1" key={idx} style={
@@ -87,7 +93,8 @@ function TreeNode(props) {
                                 {
                                     idx === 0
                                     &&
-                                    <div style={isLeaf ? {display:'none'} : nodeLeftLineStyle } className={`mr-1 node-${id}-${idx}-left`}>
+                                    <div style={isLeaf ? {display: 'none'} : nodeLeftLineStyle}
+                                         className={`mr-1 node-${id}-${idx}-left`}>
                                         <div style={treeLineStyle}
                                              className={`line-${id}-${idx}-left`}>
                                         </div>
@@ -98,7 +105,7 @@ function TreeNode(props) {
                                         {item}
                                     </div>
                                 </div>
-                                <div style={isLeaf ? {display:'none'} : nodeRightLineStyle}
+                                <div style={isLeaf ? {display: 'none'} : nodeRightLineStyle}
                                      className={`ml-1 node-${id}-${idx}-right node-${id}-${idx + 1}-left`}
                                 >
                                     <div style={treeLineStyle}

@@ -4,18 +4,33 @@ import {insert, initialize, erase, undo, redo} from "../../actions/index";
 import {findElement} from "../../functions/motorics";
 import {range} from "../../functions/helpers";
 import useMeasure from "react-use-measure";
+import ThemePicker from "./ThemePicker";
+import {themeParams} from "../../constants/constants";
 
 const Header = props => {
 
     const {headerHeightSetter} = props;
 
     const dispatch = useDispatch();
+    const themeIndex = useSelector(state => state.theme);
     const [inputValue, setInputValue] = useState('');
     const inputRef = useRef(null);
     const [selectValue, setSelectValue] = useState('Degree');
     const levels = useSelector(state => state.tree);
     const optionValues = range({start: 3, stop: 10});
     const [ref, bounds] = useMeasure()
+
+
+    const {
+        navBarClass,
+        insertButtonClass,
+        eraseButtonClass,
+        findButtonClass,
+        clearButtonClass,
+        undoButtonClass,
+        redoButtonClass,
+        inputClass
+    } = themeParams[themeIndex];
 
     const onInputChange = (e) => {
         setInputValue(e.target.value);
@@ -73,31 +88,30 @@ const Header = props => {
 
     return (
         <div ref={ref}>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className={navBarClass}>
                 <a className="navbar-brand" href="." onClick={e => e.preventDefault()}>B-tree Visualization</a>
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-
                     <form className="form-inline d-inline-flex" onSubmit={onSubmit}>
                         <ul className="navbar-nav mr-auto">
                             <div>
-                                <input id="input" className="form-control form-control-sm mx-1 w-25" type="text"
+                                <input id="input" className={inputClass} type="text"
                                        aria-label="Insertion" value={inputValue} ref={inputRef}
                                        onChange={onInputChange}/>
                                 {/*insertion*/}
-                                <button className="btn btn-sm btn-outline-success mr-2" onClick={onInsertButtonClick}>
+                                <button className={insertButtonClass} onClick={onInsertButtonClick}>
                                     Insert
                                 </button>
                                 {/*deletion*/}
-                                <button className="btn btn-sm btn-outline-danger mr-2" onClick={onEraseButtonClick}>
+                                <button className={eraseButtonClass} onClick={onEraseButtonClick}>
                                     Erase
                                 </button>
                                 {/*find*/}
-                                <button className="btn btn-sm btn-outline-info mr-2" onClick={onFindButtonClick}>
+                                <button className={findButtonClass} onClick={onFindButtonClick}>
                                     Find
                                 </button>
                                 {/*clear*/}
-                                <button className="btn btn-sm btn-outline-secondary mr-2" onClick={onClearButtonClick}>
+                                <button className={clearButtonClass} onClick={onClearButtonClick}>
                                     Clear
                                 </button>
                                 <select id="degree" className="custom-select custom-select-sm"
@@ -117,19 +131,27 @@ const Header = props => {
                                 </select>
                             </div>
                             <div>
-                                <button className="btn btn-sm btn-outline-warning text-dark mr-2" onClick={onUndoButtonClick}>
+                                <button className={undoButtonClass}
+                                        onClick={onUndoButtonClick}>
                                     <i>
                                         Undo
                                     </i>
                                 </button>
-                                <button className="btn btn-sm btn-outline-warning text-dark mr-2" onClick={onRedoButtonClick}>
+                                <button className={redoButtonClass}
+                                        onClick={onRedoButtonClick}>
                                     <i>
                                         Redo
                                     </i>
                                 </button>
                             </div>
                         </ul>
+
                     </form>
+                    <div className="navbar-nav ml-auto">
+                        <div className="mx-1">
+                            <ThemePicker/>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </div>

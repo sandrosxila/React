@@ -1,21 +1,29 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector} from "react-redux";
 import Level from "./tree-nodes/Level";
-import {boundsById, setXById} from "../constants/constants";
+import {themeParams, boundsById, setXById} from "../constants/constants";
 import useWindowSize from "./custom-hooks/useWindowSize";
 
 function Scene(props) {
     const levels = useSelector(state => state.tree);
+    const themeIndex = useSelector(state => state.theme);
+    const {sceneBackgroundClass} = themeParams[themeIndex];
     const {headerHeight} = props;
     const windowSize = useWindowSize();
     const [sceneHeight, setSceneHeight] = useState(windowSize.height - headerHeight);
+
+    const sceneStyle = {
+        position: 'relative',
+        height: `${sceneHeight}px`,
+        overflowX: 'auto'
+    }
 
     useEffect(() => {
         setSceneHeight(windowSize.height - headerHeight);
     }, [windowSize.height, headerHeight]);
 
     return (
-        <div className={'p-2'} style={{position: 'relative', height: `${sceneHeight}px`, overflowX: 'auto'}}>
+        <div className={sceneBackgroundClass} style={sceneStyle}>
             {
                 levels.map((level, key) => (
                     <Level
