@@ -28,5 +28,5 @@ const treeReducer = (state = [], action) => {
         default:
             return state;
     }
-}
+};
 export default treeReducer;

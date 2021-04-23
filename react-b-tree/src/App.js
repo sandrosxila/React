@@ -21,7 +21,7 @@ function App() {
                 headerHeight={headerHeight}
             />
         </div>
-    )
+    );
 }
 
 export default App;

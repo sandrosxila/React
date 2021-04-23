@@ -29,14 +29,14 @@ export const themeParams = [
         inputClass: 'form-control form-control-sm mx-1 w-25 text-input-space-black'
     },
     {
-        sceneBackgroundClass: 'p-2 bg-light',
-        navBarClass: 'navbar navbar-expand-lg navbar-light bg-light',
-        insertButtonClass: 'btn btn-sm btn-outline-success mr-2',
-        eraseButtonClass: 'btn btn-sm btn-outline-danger mr-2',
-        findButtonClass: 'btn btn-sm btn-outline-info mr-2',
-        clearButtonClass: 'btn btn-sm btn-outline-secondary mr-2',
-        undoButtonClass: 'btn btn-sm btn-outline-warning text-dark mr-2',
-        redoButtonClass: 'btn btn-sm btn-outline-warning text-dark mr-2',
+        sceneBackgroundClass: 'p-2 bg-soap-bubble',
+        navBarClass: 'navbar navbar-expand-lg navbar-light bg-soap-bubble',
+        insertButtonClass: 'btn btn-sm btn-success mr-2',
+        eraseButtonClass: 'btn btn-sm btn-danger mr-2',
+        findButtonClass: 'btn btn-sm btn-info mr-2',
+        clearButtonClass: 'btn btn-sm btn-secondary mr-2',
+        undoButtonClass: 'btn btn-sm btn-warning mr-2',
+        redoButtonClass: 'btn btn-sm btn-warning mr-2',
         inputClass: 'form-control form-control-sm mx-1 w-25'
     },
     {
@@ -51,14 +51,14 @@ export const themeParams = [
         inputClass: 'form-control form-control-sm mx-1 w-25'
     },
     {
-        sceneBackgroundClass: 'p-2 bg-light',
+        sceneBackgroundClass: 'p-2 bg-grey-phantom',
         navBarClass: 'navbar navbar-expand-lg navbar-light bg-light',
-        insertButtonClass: 'btn btn-sm btn-outline-success mr-2',
-        eraseButtonClass: 'btn btn-sm btn-outline-danger mr-2',
-        findButtonClass: 'btn btn-sm btn-outline-info mr-2',
-        clearButtonClass: 'btn btn-sm btn-outline-secondary mr-2',
-        undoButtonClass: 'btn btn-sm btn-outline-warning text-dark mr-2',
-        redoButtonClass: 'btn btn-sm btn-outline-warning text-dark mr-2',
+        insertButtonClass: 'btn btn-sm fresh-grass mr-2',
+        eraseButtonClass: 'btn btn-sm georgian-blood mr-2',
+        findButtonClass: 'btn btn-sm confused-ocean mr-2',
+        clearButtonClass: 'btn btn-sm cloudy-sky mr-2',
+        undoButtonClass: 'btn btn-sm sun-core mr-2',
+        redoButtonClass: 'btn btn-sm sun-core mr-2',
         inputClass: 'form-control form-control-sm mx-1 w-25'
     },
     {
@@ -189,7 +189,7 @@ export const nodeParams = [
         nodeBorderRadius: '6.5px'
     },
     {
-        nodeBorderRadius: '0%'
+        nodeBorderRadius: '3.5px'
     },
     {
         nodeBorderRadius: '3px'
@@ -301,7 +301,8 @@ export const themeNames = [
     'Andromeda',
     'Pacific',
     'North Sea Sunset',
-    'Fluctuation'
+    'Fluctuation',
+    'General'
 ];
 
 export const boundsById = {};
@@ -309,5 +310,3 @@ export const boundsById = {};
 export const setXById = {};
 
 export const initialWindow = {width: 0, height: 0};
-
-export const counter = {value: 0};

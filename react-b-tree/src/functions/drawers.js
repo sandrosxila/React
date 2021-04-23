@@ -28,7 +28,7 @@ export const arrangePositions = (levels, setXById) => {
             });
         }
     })
-}
+};
 
 // arranging lines
 export const arrangeNodeLines = (levels,
@@ -36,14 +36,11 @@ export const arrangeNodeLines = (levels,
     currentCluster = 0,
     currentNode = 0) => {
     if(levels[currentLevel][currentCluster][currentNode].isLeaf === false) {
-        const nextCluster = () => {
-            let leftIndex = 0;
-            for (let i = 0; i < currentCluster; i++) {
-                leftIndex += levels[currentLevel][i].length;
-            }
-            return leftIndex + currentNode;
-        }
-        levels[currentLevel+1][nextCluster()].forEach((node) => {
+        let nextCluster = 0;
+        for (let i = 0; i < currentCluster; i++)
+            nextCluster += levels[currentLevel][i].length;
+        nextCluster += currentNode;
+        levels[currentLevel+1][nextCluster].forEach((node) => {
             const {id, parent, parentElement, side} = node;
             const end = document.querySelector(`#node-${id}`);
             const start = document.querySelector(`.node-${parent}-${parentElement}-${side}`);
@@ -76,6 +73,6 @@ export const arrangeNodeLines = (levels,
                 line.style.top = `${centerY - (line.offsetHeight / 2)}px`;
                 line.style.left = `${centerX - (line.offsetWidth / 2)}px`;
             }
-        })
+        });
     }
-}
+};

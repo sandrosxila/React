@@ -66,4 +66,4 @@ export const findElement =
                     findElement(element, levels, currentLevel + 1, nextCluster(), node.elements.length, 0);
             }, 1500);
         }
-    }
+    };

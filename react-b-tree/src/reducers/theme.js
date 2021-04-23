@@ -5,6 +5,6 @@ const themeReducer = (state = 4, action) => {
         default:
             return state;
     }
-}
+};
 
 export default themeReducer;

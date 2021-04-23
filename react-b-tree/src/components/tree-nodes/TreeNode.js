@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {animated, config, useSpring, useTransition} from 'react-spring';
 import {useSelector} from "react-redux";
 import {arrangePositions,arrangeNodeLines} from "../../functions/drawers";
-import {nodeParams, elementParams, grads, initialWindow, counter} from "../../constants/constants";
+import {nodeParams, elementParams, grads, initialWindow} from "../../constants/constants";
 
 function TreeNode(props) {
 
@@ -17,6 +17,10 @@ function TreeNode(props) {
         height: `${initialWindow.height / 15}px`,
         position: 'relative',
         transform: `translate3d(${x + 15}px,${0}px,0)`,
+        onFrame: () => {
+            if(!isLeaf)
+                arrangeNodeLines(levels, level, cluster,index);
+        },
         onRest: () => {
             if (isLeaf && x) {
                 setX(0);
@@ -24,12 +28,6 @@ function TreeNode(props) {
             arrangePositions(levels, setXById);
         }
     });
-
-    useEffect(() => {
-        if(isLeaf === false) {
-            arrangeNodeLines(levels, level, cluster,index);
-        }
-    }, [x]);
 
     const elementTransitions = useTransition(elements, item => item, {
         config: {duration: 1000, ...config.gentle},
