@@ -45,6 +45,7 @@ function Level(props) {
                         boundsById={boundsById}
                         id={cluster[0].parent + 1}
                         level={level}
+                        cluster={key}
                         nodes={cluster}
                         isLeaf={isLeaf}
                     />

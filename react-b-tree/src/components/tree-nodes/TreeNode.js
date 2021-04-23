@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {animated, config, useSpring, useTransition} from 'react-spring';
 import {useSelector} from "react-redux";
-import {arrangeLines, arrangePositions} from "../../functions/drawers";
-import {nodeParams, elementParams, grads, initialWindow} from "../../constants/constants";
+import {arrangePositions,arrangeNodeLines} from "../../functions/drawers";
+import {nodeParams, elementParams, grads, initialWindow, counter} from "../../constants/constants";
 
 function TreeNode(props) {
 
-    const {elements, isLeaf, id, setXById} = props;
+    const {elements, isLeaf, id, setXById, level, cluster, index} = props;
     const levels = useSelector(state => state.tree);
     const themeIndex = useSelector(state => state.theme);
     const {nodeBorderRadius} = nodeParams[themeIndex];
@@ -21,12 +21,15 @@ function TreeNode(props) {
             if (isLeaf && x) {
                 setX(0);
             }
-            setTimeout(() => {
-                arrangeLines(levels);
-            }, 1800);
             arrangePositions(levels, setXById);
         }
     });
+
+    useEffect(() => {
+        if(isLeaf === false) {
+            arrangeNodeLines(levels, level, cluster,index);
+        }
+    }, [x]);
 
     const elementTransitions = useTransition(elements, item => item, {
         config: {duration: 1000, ...config.gentle},

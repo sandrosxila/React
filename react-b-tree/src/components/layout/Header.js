@@ -5,7 +5,7 @@ import {findElement} from "../../functions/motorics";
 import {range} from "../../functions/helpers";
 import useMeasure from "react-use-measure";
 import ThemePicker from "./ThemePicker";
-import {themeParams} from "../../constants/constants";
+import {themeParams, counter} from "../../constants/constants";
 
 const Header = props => {
 
@@ -89,7 +89,8 @@ const Header = props => {
     return (
         <div ref={ref}>
             <nav className={navBarClass}>
-                <a className="navbar-brand" href="." onClick={e => e.preventDefault()}>B-tree Visualization</a>
+                <a className="navbar-brand" href="." onClick={e => {
+                    e.preventDefault(); console.log(counter)}}>B-tree Visualization</a>
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <form className="form-inline d-inline-flex" onSubmit={onSubmit}>

@@ -31,46 +31,51 @@ export const arrangePositions = (levels, setXById) => {
 }
 
 // arranging lines
-export const arrangeLines = (levels) => {
-    levels.forEach((levelItems, levelIndex) => {
-        if (document.getElementById(`level-${levelIndex}`)) {
-            levelItems.forEach((nodes) => {
-                nodes.forEach(node => {
-                    console.log(`line arranging`);
-                    const {id, parent, parentElement, side} = node;
-                    const end = document.querySelector(`#node-${id}`);
-                    const start = document.querySelector(`.node-${parent}-${parentElement}-${side}`);
-                    const line = document.querySelector(`.line-${parent}-${parentElement}-${side}`);
-                    if (start && end && line) {
-                        //first dot
-                        const aX = 0;
-                        const aY = 0;
-
-                        //last dot
-                        const bX =
-                            end.getBoundingClientRect().x + (end.getBoundingClientRect().width / 2)
-                            - start.getBoundingClientRect().x;
-                        const bY =
-                            end.getBoundingClientRect().y - start.getBoundingClientRect().y;
-
-                        //find center points;
-                        const centerX = (aX + bX) / 2;
-                        const centerY = (aY + bY) / 2;
-
-                        //angle
-                        const angle = Math.atan2(aY - bY, aX - bX) * 180 / Math.PI;
-
-                        //distance
-                        const distance = Math.sqrt(Math.pow((bX - aX), 2) + Math.pow((bY - aY), 2));
-
-                        //bring all the work together
-                        line.style.width = `${distance}px`;
-                        line.style.transform = `rotate(${angle}deg)`;
-                        line.style.top = `${centerY - (line.offsetHeight / 2)}px`;
-                        line.style.left = `${centerX - (line.offsetWidth / 2)}px`;
-                    }
-                })
-            });
+export const arrangeNodeLines = (levels,
+    currentLevel = 0,
+    currentCluster = 0,
+    currentNode = 0) => {
+    if(levels[currentLevel][currentCluster][currentNode].isLeaf === false) {
+        const nextCluster = () => {
+            let leftIndex = 0;
+            for (let i = 0; i < currentCluster; i++) {
+                leftIndex += levels[currentLevel][i].length;
+            }
+            return leftIndex + currentNode;
         }
-    })
+        levels[currentLevel+1][nextCluster()].forEach((node) => {
+            const {id, parent, parentElement, side} = node;
+            const end = document.querySelector(`#node-${id}`);
+            const start = document.querySelector(`.node-${parent}-${parentElement}-${side}`);
+            const line = document.querySelector(`.line-${parent}-${parentElement}-${side}`);
+            if (start && end && line) {
+                //first dot
+                const aX = 0;
+                const aY = 0;
+
+                //last dot
+                const bX =
+                    end.getBoundingClientRect().x + (end.getBoundingClientRect().width / 2)
+                    - start.getBoundingClientRect().x;
+                const bY =
+                    end.getBoundingClientRect().y - start.getBoundingClientRect().y;
+
+                //find center points;
+                const centerX = (aX + bX) / 2;
+                const centerY = (aY + bY) / 2;
+
+                //angle
+                const angle = Math.atan2(aY - bY, aX - bX) * 180 / Math.PI;
+
+                //distance
+                const distance = Math.sqrt(Math.pow((bX - aX), 2) + Math.pow((bY - aY), 2));
+
+                //bring all the work together
+                line.style.width = `${distance}px`;
+                line.style.transform = `rotate(${angle}deg)`;
+                line.style.top = `${centerY - (line.offsetHeight / 2)}px`;
+                line.style.left = `${centerX - (line.offsetWidth / 2)}px`;
+            }
+        })
+    }
 }

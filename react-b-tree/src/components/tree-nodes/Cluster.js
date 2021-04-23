@@ -3,7 +3,7 @@ import {animated, useSpring} from 'react-spring';
 import TreeNode from "./TreeNode";
 
 const Cluster = (props) => {
-    const {level, isLeaf, nodes, id, boundsById, setXById} = props;
+    const {level, isLeaf, nodes, id, boundsById, setXById, cluster} = props;
 
     const [x, setX] = useState(0);
 
@@ -30,6 +30,8 @@ const Cluster = (props) => {
                                 setXById={setXById}
                                 boundsById={boundsById}
                                 level={level}
+                                cluster={cluster}
+                                index={key}
                                 id={node.id}
                                 isLeaf={node.isLeaf}
                                 elements={node.elements}
