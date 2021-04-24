@@ -73,15 +73,15 @@ export const themeParams = [
         inputClass: 'form-control form-control-sm mx-1 w-25'
     },
     {
-        sceneBackgroundClass: 'p-2 bg-light',
-        navBarClass: 'navbar navbar-expand-lg navbar-light bg-light',
-        insertButtonClass: 'btn btn-sm btn-outline-success mr-2',
-        eraseButtonClass: 'btn btn-sm btn-outline-danger mr-2',
-        findButtonClass: 'btn btn-sm btn-outline-info mr-2',
-        clearButtonClass: 'btn btn-sm btn-outline-secondary mr-2',
-        undoButtonClass: 'btn btn-sm btn-outline-warning text-dark mr-2',
-        redoButtonClass: 'btn btn-sm btn-outline-warning text-dark mr-2',
-        inputClass: 'form-control form-control-sm mx-1 w-25'
+        sceneBackgroundClass: 'p-2 bg-midnight',
+        navBarClass: 'navbar navbar-expand-lg navbar-dark bg-midnight',
+        insertButtonClass: 'btn btn-sm green-laser mr-2',
+        eraseButtonClass: 'btn btn-sm red-laser mr-2',
+        findButtonClass: 'btn btn-sm blue-laser mr-2',
+        clearButtonClass: 'btn btn-sm purple-laser mr-2',
+        undoButtonClass: 'btn btn-sm fire-laser mr-2',
+        redoButtonClass: 'btn btn-sm fire-laser mr-2',
+        inputClass: 'form-control form-control-sm text-input-underlined ml-1 mr-2 w-25'
     },
     {
         sceneBackgroundClass: 'p-2 bg-light',
@@ -201,7 +201,7 @@ export const nodeParams = [
         nodeBorderRadius: '0%'
     },
     {
-        nodeBorderRadius: '0%'
+        nodeBorderRadius: '8px'
     },
     {
         nodeBorderRadius: '0%'
