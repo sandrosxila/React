@@ -1,14 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {animated, config, useSpring, useTransition} from 'react-spring';
-import {useSelector} from "react-redux";
 import {arrangePositions,arrangeNodeLines} from "../../functions/drawers";
 import {nodeParams, elementParams, grads, initialWindow} from "../../constants/constants";
 
-function TreeNode(props) {
-
-    const {elements, isLeaf, id, setXById, level, cluster, index} = props;
-    const levels = useSelector(state => state.tree);
-    const themeIndex = useSelector(state => state.theme);
+function TreeNode({levels, themeIndex, elements, isLeaf, id, setXById, level, cluster, index}) {
     const {nodeBorderRadius} = nodeParams[themeIndex];
 
     const [x, setX] = useState(0);

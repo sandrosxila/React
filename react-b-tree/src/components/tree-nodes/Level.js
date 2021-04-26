@@ -4,13 +4,12 @@ import {animated, useSpring} from 'react-spring';
 import Cluster from "./Cluster";
 import {initialWindow} from "../../constants/constants";
 
-function Level(props) {
-    const {level, clusters, isLeaf, boundsById, setXById} = props;
+function Level({levels, themeIndex, level, clusters, isLeaf, boundsById, setXById}) {
 
     const [ref, bounds] = useMeasure();
 
     const [x, setX] = useState(initialWindow.width / 2);
-    const [y, setY] = useState(5 + level * (initialWindow.height / 8));
+    const y = 5 + level * (initialWindow.height / 8);
 
     const treeLevelProps = useSpring(
         {
@@ -36,14 +35,15 @@ function Level(props) {
 
 
     return (
-        <animated.div className={"row flex-nowrap"} id={`level-${level}`} ref={ref} style={treeLevelProps}>
+        <animated.div className="row flex-nowrap" id={`level-${level}`} ref={ref} style={treeLevelProps}>
             {
                 clusters.map((cluster, key) => (
                     <Cluster
                         key={key}
+                        levels={levels}
+                        themeIndex={themeIndex}
                         setXById={setXById}
                         boundsById={boundsById}
-                        id={cluster[0].parent + 1}
                         level={level}
                         cluster={key}
                         nodes={cluster}

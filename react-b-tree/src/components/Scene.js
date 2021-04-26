@@ -4,11 +4,10 @@ import Level from "./tree-nodes/Level";
 import {themeParams, boundsById, setXById} from "../constants/constants";
 import useWindowSize from "./custom-hooks/useWindowSize";
 
-function Scene(props) {
+function Scene({headerHeight}) {
     const levels = useSelector(state => state.tree);
     const themeIndex = useSelector(state => state.theme);
     const {sceneBackgroundClass} = themeParams[themeIndex];
-    const {headerHeight} = props;
     const windowSize = useWindowSize();
     const [sceneHeight, setSceneHeight] = useState(windowSize.height - headerHeight);
 
@@ -28,6 +27,8 @@ function Scene(props) {
                 levels.map((level, key) => (
                     <Level
                         key={key}
+                        levels={levels}
+                        themeIndex={themeIndex}
                         clusters={level}
                         level={key}
                         isLeaf={levels.length - 1 === key}
