@@ -799,7 +799,6 @@ class BTree {
         } else {
             for (let idx = 0; idx < current.size(); idx++) {
                 if (elem === current.valueAt(idx)) {
-                    console.log(this);
                     this.callStack.push([]);
                     this.eraseDispatch(current, idx, parentIndex, side);
                     this.size--;
@@ -857,7 +856,6 @@ class BTree {
         let lastParent = -2;
         for (let i = 0; queue.length !== 0;) {
             const {id, level, node, parent, parentElement, side} = queue.shift();
-            // console.log("node is here:",node);
             node.elements.forEach(
                 (element, index) => {
                     if (element.hasLeftChild()) {
@@ -893,7 +891,6 @@ class BTree {
                 nodes[level].push([]);
                 lastParent = parent;
             }
-            // console.log("nodes level",nodes[level]);
             nodes[level][nodes[level].length - 1].push({
                 id,
                 elements: [...node.elements.map(element => element.value)],

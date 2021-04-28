@@ -28,4 +28,4 @@ const Cluster = ({levels, themeIndex, level, nodes, boundsById, setXById, cluste
     );
 };
 
-export default Cluster;
+export default React.memo(Cluster);

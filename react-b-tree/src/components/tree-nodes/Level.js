@@ -30,8 +30,7 @@ function Level({levels, themeIndex, level, clusters, isLeaf, boundsById, setXByI
             setX(Math.max(bounds.width / 2, initialWindow.width / 2));
         }
         setX((initialWindow.width / 2) - (bounds.width / 2));
-        boundsById[`level-${level}`] = bounds;
-    }, [bounds, boundsById, isLeaf, level]);
+    }, [bounds, isLeaf, level]);
 
 
     return (
@@ -55,4 +54,4 @@ function Level({levels, themeIndex, level, clusters, isLeaf, boundsById, setXByI
     );
 }
 
-export default Level;
+export default React.memo(Level);

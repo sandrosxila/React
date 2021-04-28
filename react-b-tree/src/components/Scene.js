@@ -22,7 +22,7 @@ function Scene({headerHeight}) {
     }, [windowSize.height, headerHeight]);
 
     return (
-        <div className={sceneBackgroundClass} style={sceneStyle}>
+        <div className={sceneBackgroundClass} style={sceneStyle} id="scene">
             {
                 levels.map((level, key) => (
                     <Level

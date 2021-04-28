@@ -75,7 +75,10 @@ function TreeNode({levels, themeIndex, elements, isLeaf, id, setXById, level, cl
 
     useEffect(() => {
         setXById[`node-${id}`] = setX;
-    }, [id, setXById]);
+        return () => {
+            setXById[`node-${id}`] = undefined;
+        }
+    }, [id, setXById, setX]);
 
 
     return (
@@ -117,4 +120,4 @@ function TreeNode({levels, themeIndex, elements, isLeaf, id, setXById, level, cl
     );
 }
 
-export default TreeNode;
+export default React.memo(TreeNode);

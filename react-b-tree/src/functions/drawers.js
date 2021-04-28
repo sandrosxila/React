@@ -8,13 +8,15 @@ export const arrangePositions = (levels, setXById) => {
                 const leftNode = document.getElementById(`node-${nodes[0].id}`);
                 const rightNode = document.getElementById(`node-${nodes[nodes.length - 1].id}`);
                 const parentNode = document.getElementById(`node-${nodes[0].parent}`);
-                if (leftNode && rightNode && parentNode) {
+                const scene = document.getElementById('scene');
+                if (leftNode && rightNode && parentNode && scene) {
                     const leftNodeBounds = leftNode.getBoundingClientRect();
                     const rightNodeBounds = rightNode.getBoundingClientRect();
                     const parentNodeBounds = parentNode.getBoundingClientRect();
                     if (setXById[`node-${nodes[0].parent}`]) {
                         setXById[`node-${nodes[0].parent}`](
                             (leftNodeBounds.left)
+                            + scene.scrollLeft
                             + ((rightNodeBounds.left + rightNodeBounds.width - leftNodeBounds.left) / 2)
                             - (leftSum)
                             - (parentNodeBounds.width / 2)
